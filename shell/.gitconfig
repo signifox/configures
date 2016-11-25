@@ -1,0 +1,31 @@
+[user]
+    name  = signifox
+    email = signifox@gmail.com
+[color]  # Ensure we get color
+    diff   = always
+    branch = auto
+    status = auto
+    grep   = always
+[push]
+    default = tracking
+[alias]
+    st   = status
+    di   = icdiff
+    br   = branch
+    ci   = commit
+    cc   = commit --amend
+    co   = checkout
+    pl   = pull --rebase
+    hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %Cblue%cn%Creset' --abbrev-commit --date=relative
+    prit = log --pretty='%e | %an %ae | %s'
+    mg   = merge
+    cl   = fetch --prune
+    untrack = rm -r --cached
+[gui]
+    encoding = utf-8
+[i18n]
+    commitencoding = utf-8
+    logoutputencoding = utf-8
+[svn]
+    pathnameencoding = utf-8
+
