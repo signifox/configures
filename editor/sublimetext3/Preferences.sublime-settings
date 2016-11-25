@@ -1,0 +1,42 @@
+{
+	"always_show_minimap_viewport": true,
+	"auto_complete": true,
+	"auto_indent": true,
+	"bold_folder_labels": true,
+	"caret_extra_bottom": 1,
+	"caret_extra_top": 1,
+	"caret_extra_width": 1,
+	"caret_style": "blink",
+	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Monokai.tmTheme",
+	"default_encoding": "UTF-8",
+	"fade_fold_buttons": false,
+	"find_selected_text": true,
+	"fold_buttons": true,
+	"font_face": "mononoki bold",
+	"font_size": 16,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"index_files": false,
+	"line_numbers": true,
+	"line_padding_bottom": 1,
+	"line_padding_top": 1,
+	"match_tags": true,
+	"overlay_scroll_bars": "enabled",
+	"scroll_past_end": false,
+	"show_encoding": true,
+	"show_line_endings": true,
+	"smart_indent": true,
+	"tab_size": 4,
+	"theme": "Boxy Monokai.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"update_check": false
+}

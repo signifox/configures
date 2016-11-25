@@ -1,0 +1,93 @@
+import os
+import subprocess
+
+proc = subprocess.Popen(["git rev-parse --short HEAD"], stdout=subprocess.PIPE, shell=True)
+(out, err) = proc.communicate()
+revision = out.strip()
+
+proc = subprocess.Popen(["date +%Y/%m/%d-%H:%M:%S"], stdout=subprocess.PIPE, shell=True)
+(out, err) = proc.communicate()
+build_date = out.strip()
+
+libs = ['pthread',
+        'thrift',
+        'thriftnb',
+        'event',
+        'z',
+        'boost_system',
+        'boost_serialization',
+        'boost_regex',
+        'boost_filesystem',
+        'boost_thread',
+        'kv',
+        'kv_bytedance',
+        'jemalloc',
+        'crypto',
+        'hiredis',
+        'mysqlclient_r',
+        'curl',
+        'cpputil_lite',
+        'cpputil_db2',
+        'databus',
+        'demotion',
+        'log4cxx',
+        'protobuf',
+        'cares',
+        'gflags',
+        'fmt',
+        'thrift_profile',
+        'cppcomponent']
+
+libpath = ['/opt/tiger/cpplib/current/log4cxx-0.10.0/lib',
+           '/opt/tiger/cpplib/current/hiredis-0.11.0/lib',
+           '/opt/tiger/cpplib/current/libkv-0.0.1/lib',
+           '/opt/tiger/cpplib/current/libkv_bytedance-0.0.1/lib',
+           '/opt/tiger/cpplib/current/cpputil-lite-1.0.0/lib',
+           '/opt/tiger/cpplib/current/cpputil-db-1.0.0/lib',
+           '/opt/tiger/cpplib/current/cpputil-db2-2.1.0/lib',
+           '/opt/tiger/cpplib/current/databus-1.0.0/lib',
+           '/opt/tiger/cpplib/current/cpputil-demotion-1.0.1/lib',
+           '/opt/tiger/cpplib/current/gflags-2.1.1/lib',
+           '/opt/tiger/cpplib/current/thrift-0.9.1/lib',
+           '/opt/tiger/cpplib/current/protobuf-2.5.0/lib',
+           '/opt/tiger/cpplib/current/c-ares-1.10.0/lib',
+           '/opt/tiger/cpplib/current/curl-7.46.0/lib',
+           '/opt/tiger/cpplib/current/boost-1.56.0/lib',
+           '/opt/tiger/cpplib/current/jemalloc-3.5.1/lib',
+           '/opt/tiger/cpplib/current/fmt-3.0.0/lib',
+           '../../cppcomponent/lib',
+           '../../cppinterface/lib'
+           ],
+
+path = ['.',
+        '../resource/interface/profile/',
+        '/opt/tiger/cpplib/current/rapidjson-1.0.2/include',
+        '/opt/tiger/cpplib/current/libkv-0.0.1/include',
+        '/opt/tiger/cpplib/current/libkv_bytedance-0.0.1/include',
+        '/opt/tiger/cpplib/current/hiredis-0.11.0/include',
+        '/opt/tiger/cpplib/current/cpputil-lite-1.0.0/include',
+        '/opt/tiger/cpplib/current/cpputil-db-1.0.0/include',
+        '/opt/tiger/cpplib/current/cpputil-db2-2.1.0/include',
+        '/opt/tiger/cpplib/current/databus-1.0.0/include',
+        '/opt/tiger/cpplib/current/cpputil-demotion-1.0.1/include',
+        '/opt/tiger/cpplib/current/gflags-2.1.1/include',
+        '/opt/tiger/cpplib/current/thrift-0.9.1/include',
+        '/opt/tiger/cpplib/current/curl-7.46.0/include',
+        '/opt/tiger/cpplib/current/boost-1.56.0/include',
+        '/opt/tiger/cpplib/current/jemalloc-3.5.1/include',
+        '/opt/tiger/cpplib/current/fmt-3.0.0/include',
+        '../../cppcomponent/include',
+        '../../cppinterface/include/cppinterface/profile',
+        ]
+
+env = Environment(CPPPATH=path,
+                  CXXFLAGS="-g -O3 -Wall -Werror -fno-omit-frame-pointer -Wno-reorder -Wno-unused-local-typedefs -pthread -DLINUX -std=c++14 -fPIC -DNDEBUG",
+                  CPPFLAGS='-DLOCAL_VERSION=\\"' + revision + '\\" -DBUILD_DATE=\\"' + build_date + '\\"',
+                  LIBPATH=libpath,
+                  LIBS=libs,
+                  CXX='bundle_linker g++',
+                  LINKFLAGS='-Wl,--dynamic-linker,/lib64/ld-linux-x86-64.so.2',
+                  ENV=os.environ)
+
+sources = [Glob('frame/*.cpp'), Glob('strategy/*/*.cpp'), Glob('main/*.cpp'), Glob('common/*.cpp')]
+env.Program('profile_service', sources)
