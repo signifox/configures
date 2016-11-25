@@ -71,14 +71,11 @@ alias s='ls'
 alias vi='vim'
 
 export EDITOR=vim
-export LESSCHARSET=utf-8 
+export LESSCHARSET=utf-8
 
-export GOROOT=/usr/local/Cellar/go/1.7.1/libexec
+export GOROOT=/usr/local/Cellar/go/1.8.1/libexec
 export GOPATH=/opt/tiger/godev
 export PATH=/usr/local/bin:$PATH:$GOROOT/bin:$GOPATH/bin
-
-export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
-export SBT_OPTS="-XX:+CMSClassUnloadingEnabled"
 
 #ps -ef | grep python | grep huxiao | grep -v "grep" | awk '{print $2}' | xargs kill -9
 

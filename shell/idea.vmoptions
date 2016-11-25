@@ -1,0 +1,10 @@
+-Xms1024m
+-Xmx4096m
+-XX:ReservedCodeCacheSize=240m
+-XX:+UseCompressedOops
+-XX:+UseParNewGC 
+-XX:+UseConcMarkSweepGC 
+-XX:+CMSParallelRemarkEnabled 
+-XX:SurvivorRatio=8 
+-XX:MaxTenuringThreshold=2 
+-XX:CMSInitiatingOccupancyFraction=55
