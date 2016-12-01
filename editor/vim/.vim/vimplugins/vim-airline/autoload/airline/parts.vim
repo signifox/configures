@@ -62,10 +62,6 @@ function! airline#parts#paste()
   return g:airline_detect_paste && &paste ? g:airline_symbols.paste : ''
 endfunction
 
-function! airline#parts#spell()
-  return g:airline_detect_spell && &spell ? g:airline_symbols.spell : ''
-endfunction
-
 function! airline#parts#iminsert()
   if g:airline_detect_iminsert && &iminsert && exists('b:keymap_name')
     return toupper(b:keymap_name)
@@ -82,9 +78,10 @@ function! airline#parts#readonly()
 endfunction
 
 function! airline#parts#filetype()
-  return winwidth(0) < 100 && strlen(&filetype) > 3 ? matchstr(&filetype, '...'). '…' : &filetype
+  return &filetype
 endfunction
 
 function! airline#parts#ffenc()
   return printf('%s%s%s', &fenc, &l:bomb ? '[BOM]' : '', strlen(&ff) > 0 ? '['.&ff.']' : '')
 endfunction
+

@@ -123,11 +123,7 @@ function! airline#extensions#load()
 
   if exists('g:airline_extensions')
     for ext in g:airline_extensions
-      try
-        call airline#extensions#{ext}#init(s:ext)
-      catch /^Vim\%((\a\+)\)\=:E117/	" E117, function does not exist
-        call airline#util#warning("Extension '".ext."' not installed, ignoring!")
-      endtry
+      call airline#extensions#{ext}#init(s:ext)
     endfor
     return
   endif
@@ -248,10 +244,6 @@ function! airline#extensions#load()
 
   if (get(g:, 'airline#extensions#windowswap#enabled', 1) && get(g:, 'loaded_windowswap', 0))
     call airline#extensions#windowswap#init(s:ext)
-  endif
-
-  if (get(g:, 'airline#extensions#obsession#enabled', 1) && exists('*ObsessionStatus'))
-    call airline#extensions#obsession#init(s:ext)
   endif
 
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)

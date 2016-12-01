@@ -131,25 +131,17 @@ function! airline#extensions#tabline#title(n)
     let title = TabooTabTitle(a:n)
   endif
 
-  if empty(title) && exists('*gettabvar')
-    let title = gettabvar(a:n, 'title')
-  endif
-
   if empty(title)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
-    let all_buffers = airline#extensions#tabline#buflist#list()
-    return airline#extensions#tabline#get_buffer_name(
-          \ buflist[winnr - 1],
-          \ filter(buflist, 'index(all_buffers, v:val) != -1'))
+    return airline#extensions#tabline#get_buffer_name(buflist[winnr - 1])
   endif
 
   return title
 endfunction
 
-function! airline#extensions#tabline#get_buffer_name(nr, ...)
-  let buffers = a:0 ? a:1 : airline#extensions#tabline#buflist#list()
-  return airline#extensions#tabline#formatters#{s:formatter}#format(a:nr, buffers)
+function! airline#extensions#tabline#get_buffer_name(nr)
+  return airline#extensions#tabline#formatters#{s:formatter}#format(a:nr, airline#extensions#tabline#buflist#list())
 endfunction
 
 function! airline#extensions#tabline#new_builder()

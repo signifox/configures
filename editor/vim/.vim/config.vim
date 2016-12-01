@@ -5,7 +5,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set runtimepath+=~/.vim
-
+"set rtp+=$HOME/.local/powerline/powerline/bindings/vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Font encode
@@ -56,7 +56,6 @@ set softtabstop=4
 set shiftwidth=4
 
 set guifont=mononoki\ Bold:h14
-set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]\%{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 
 syntax on
 filetype plugin indent on
@@ -92,12 +91,23 @@ call pathogen#helptags()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Colorscheme
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
-let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
+"let g:solarized_termcolors=256
+"set background=dark
+"colorscheme solarized
+colorscheme molokai
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_powerline_fonts = 1
+let g:airline_theme='molokai'
+set laststatus=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "MiniBufExplorer
@@ -148,10 +158,20 @@ let g:go_fmt_command = "goimports"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-autopep8
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:autopep8_aggressive=1
+let g:autopep8_max_line_length=512
+let g:autopep8_ignore="E501,C0301,W0142,W0402,R0201,E1101,E1102,C0103,R0901,R0903,R0904,C1001,W0223,W0232,W0201,E1103,R0801,C0111"
+let g:autopep8_disable_show_diff=1
+autocmd BufWritePost *.py Autopep8
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:clang_format#detect_style_file = 1
 let g:clang_format#auto_format = 1
+"let g:clang_format#detect_style_file = 1
 let g:clang_format#style_options = {
             \ "BasedOnStyle": "Google",
             \ "IndentWidth": 4,

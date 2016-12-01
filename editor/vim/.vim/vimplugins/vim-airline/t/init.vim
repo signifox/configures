@@ -18,10 +18,9 @@ describe 'init sections'
     call s:clear()
   end
 
-  it 'section a should have mode, paste, spell, iminsert'
+  it 'section a should have mode, paste, iminsert'
     Expect g:airline_section_a =~ 'mode'
     Expect g:airline_section_a =~ 'paste'
-    Expect g:airline_section_a =~ 'spell'
     Expect g:airline_section_a =~ 'iminsert'
   end
 

@@ -65,8 +65,6 @@ function! airline#switch_theme(name)
   let w:airline_lastmode = ''
   call airline#load_theme()
 
-  silent doautocmd User AirlineAfterTheme
-
   " this is required to prevent clobbering the startup info message, i don't know why...
   call airline#check_mode(winnr())
 endfunction
@@ -175,10 +173,6 @@ function! airline#check_mode(winnr)
 
   if g:airline_detect_crypt && exists("+key") && !empty(&key)
     call add(l:mode, 'crypt')
-  endif
-
-  if g:airline_detect_spell && &spell
-    call add(l:mode, 'spell')
   endif
 
   if &readonly || ! &modifiable

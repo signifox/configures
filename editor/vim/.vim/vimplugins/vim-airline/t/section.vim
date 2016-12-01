@@ -72,10 +72,5 @@ describe 'section'
     let s = airline#section#create(['conditional'])
     Expect s == '%{0 ? airline#util#wrap("conditional",0) : ""}'
   end
-
-  it 'should not draw two separators after another'
-    let s = airline#section#create_right(['ffenc','%{strftime("%H:%M")}'])
-    Expect s == '%{airline#util#prepend(airline#parts#ffenc(),0)}%{strftime("%H:%M")}'
-  end
 end
 
