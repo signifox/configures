@@ -158,16 +158,6 @@ let g:go_fmt_command = "goimports"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"vim-autopep8
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:autopep8_aggressive=1
-let g:autopep8_max_line_length=512
-let g:autopep8_ignore="E501,C0301,W0142,W0402,R0201,E1101,E1102,C0103,R0901,R0903,R0904,C1001,W0223,W0232,W0201,E1103,R0801,C0111"
-let g:autopep8_disable_show_diff=1
-autocmd BufWritePost *.py Autopep8
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:clang_format#auto_format = 1
