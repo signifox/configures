@@ -109,6 +109,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
 set laststatus=2
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "MiniBufExplorer
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -155,6 +156,17 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-autopep8
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:autopep8_aggressive=1
+let g:autopep8_max_line_length=256
+let g:autopep8_ignore="E123,E133,E501"
+let g:autopep8_disable_show_diff=1
+let g:flake8_show_in_gutter=1  " show
+autocmd BufWritePost *.py Autopep8
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
