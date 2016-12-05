@@ -1,0 +1,24 @@
+// 将设置放入此文件中以覆盖默认设置
+{
+    "editor.fontFamily": "Fira Code",
+    "editor.fontSize": 14,
+    "editor.fontLigatures": true,
+    "editor.rulers": [],
+    "C_Cpp.clang_format_path": "/usr/local/bin/clang-format",
+    "C_Cpp.clang_format_style": "file",
+    "C_Cpp.clang_format_fallbackStyle": "Google",
+    "C_Cpp.clang_format_formatOnSave": true,
+    "python.formatting.formatOnSave": true,
+    "python.linting.maxNumberOfProblems": 256,
+    "python.linting.autopep8Args": ["--ignore=E123,E133,E501","--max_line_length=256"],
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "*.pyc": true,  
+        "*.pyo" : true
+    },
+    "extensions.autoUpdate": true,
+    "editor.cursorStyle": "block"
+}
