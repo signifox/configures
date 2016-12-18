@@ -49,6 +49,8 @@ set wrap
 set autowrite
 set noeb
 set novisualbell
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 set backspace=2
 set tabstop=4
