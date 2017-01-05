@@ -5,15 +5,14 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set runtimepath+=~/.vim
-"set rtp+=$HOME/.local/powerline/powerline/bindings/vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Font encode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 language message en_US.UTF-8
-set termencoding=utf-8 
-set fileencoding=utf-8 
-set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936 
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936
 set langmenu=en_US.UTF-8
 set ffs=unix,dos,mac
 
@@ -64,22 +63,26 @@ filetype plugin indent on
 
 let mapleader = "'"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""                                
-"Vim autocmd                                                                                       
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""                                
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Vim autocmd
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType makefile set noexpandtab
 autocmd FileType diff nmap <C-n> /^+\\|^-<CR>
 autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number
 
 
-" Restore the last quit position when open file.                                                    
-autocmd BufReadPost *                                                                               
-\ if line("'\"") > 0 && line("'\"") <= line("$") |                                              
-\     exe "normal g'\"" |                                                                       
-\ endif    
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Restore the last quit position when open file.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\     exe "normal g'\"" |
+\ endif
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto append vim setting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufNewFile *.h,*.cpp,*.c,*.cc,*.java,*.pl,*.php
 \    :call append(line('$'), "/* vim: set ts=4 sw=4 sts=4 tw=100 */")
 
@@ -95,9 +98,6 @@ call pathogen#helptags()
 "Colorscheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
-"let g:solarized_termcolors=256
-"set background=dark
-"colorscheme solarized
 colorscheme molokai
 
 
@@ -105,8 +105,6 @@ colorscheme molokai
 "vim-airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
 set laststatus=2
@@ -190,7 +188,6 @@ let g:ale_lint_on_enter = 0
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:clang_format#auto_format = 1
-"let g:clang_format#detect_style_file = 1
 let g:clang_format#style_options = {
             \ "BasedOnStyle": "Google",
             \ "IndentWidth": 4,
