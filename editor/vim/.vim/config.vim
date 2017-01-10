@@ -9,12 +9,9 @@ set runtimepath+=~/.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Font encode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-language message en_US.UTF-8
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936
-set langmenu=en_US.UTF-8
-set ffs=unix,dos,mac
+set encoding=utf-8
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
