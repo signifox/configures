@@ -78,13 +78,6 @@ autocmd BufReadPost *
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Auto append vim setting
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufNewFile *.h,*.cpp,*.c,*.cc,*.java,*.pl,*.php
-\    :call append(line('$'), "/* vim: set ts=4 sw=4 sts=4 tw=100 */")
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Plugin Setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call pathogen#infect('~/.vim/vimplugins')
@@ -186,12 +179,9 @@ let g:ale_lint_on_enter = 0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:clang_format#auto_format = 1
 let g:clang_format#style_options = {
-            \ "BasedOnStyle": "Google",
-            \ "IndentWidth": 4,
-            \ "AccessModifierOffset": -4,
-            \ "TabWidth":4,
-            \ "Standard" : "C++11",
-            \ "ColumnLimit":160 }
+    \ "BasedOnStyle" : "Google"    ,
+    \ "IndentWidth"  : 2           ,
+    \ "TabWidth"     : 2           }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
