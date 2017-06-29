@@ -149,6 +149,17 @@ let g:go_fmt_command = "goimports"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-autopep8
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:autopep8_aggressive=1
+let g:autopep8_max_line_length=256
+let g:autopep8_ignore="E123,E133,E501"
+let g:autopep8_disable_show_diff=1
+let g:flake8_show_in_gutter=1  " show
+autocmd BufWritePost *.py Autopep8
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_sign_column_always = 1
