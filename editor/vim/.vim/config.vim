@@ -88,7 +88,9 @@ call pathogen#helptags()
 "Colorscheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
-colorscheme molokai
+set background=light
+colorscheme solarized
+"colorscheme molokai
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
