@@ -4,7 +4,6 @@
 "Email:  signifox@gmail.com
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set runtimepath+=~/.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Font encode
@@ -53,12 +52,12 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-set guifont=mononoki\ Bold:h14
+set guifont=Hack\ Bold:h14
 
 syntax on
 filetype plugin indent on
-
 let mapleader = "'"
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Vim autocmd
@@ -78,28 +77,50 @@ autocmd BufReadPost *
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Auto append vim setting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufNewFile *.h,*.cpp,*.c,*.cc,*.java,*.pl,*.php
+\    :call append(line('$'), "/* vim: set ts=4 sw=4 sts=4 tw=100 */")
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Plugin Setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call pathogen#infect('~/.vim/vimplugins')
-call pathogen#helptags()
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
+Plug 'tell-k/vim-autopep8'
+Plug 'rhysd/vim-clang-format'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
+Plug 'fholgado/minibufexpl.vim'
+Plug 'altercation/vim-colors-solarized'
+
+call plug#end()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Colorscheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
+let g:solarized_termcolors=256
 set background=light
 colorscheme solarized
-"colorscheme molokai
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
-set laststatus=2
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
