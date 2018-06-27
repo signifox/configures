@@ -95,12 +95,20 @@ Plug 'w0rp/ale'
 Plug 'tell-k/vim-autopep8'
 Plug 'rhysd/vim-clang-format'
 Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'fholgado/minibufexpl.vim'
 Plug 'altercation/vim-colors-solarized'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'alpertuna/vim-header'
+Plug 'whatot/gtags-cscope.vim'
+Plug 'skielbasa/vim-material-monokai'
+
+
 
 call plug#end()
 
@@ -110,8 +118,10 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
 let g:solarized_termcolors=256
+"set background=dark
 set background=light
-colorscheme solarized
+"set termguicolors
+colorscheme material-monokai
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -119,8 +129,10 @@ colorscheme solarized
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline_theme='molokai'
+let g:airline_powerline_fonts = 0
+"let g:airline_theme='molokai'
+let g:airline_theme='materialmonokai'
+let g:materialmonokai_subtle_airline=1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,7 +179,7 @@ let g:autopep8_max_line_length=256
 let g:autopep8_ignore="E123,E133,E501"
 let g:autopep8_disable_show_diff=1
 let g:flake8_show_in_gutter=1  " show
-autocmd BufWritePost *.py Autopep8
+"autocmd BufWritePost *.py Autopep8
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -186,9 +198,19 @@ let g:ale_lint_on_enter = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-header
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:header_field_author = 'huxiao'
+let g:header_field_author_email = 'huxiao@bytedance.com'
+let g:header_field_timestamp_format = '%Y/%m/%d'
+let g:header_auto_add_header = 0
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:clang_format#auto_format = 1
+let g:clang_format#command="/usr/bin/clang-format-3.5"
+let g:clang_format#auto_format = 0
 let g:clang_format#style_options = {
     \ "BasedOnStyle" : "Google"    ,
     \ "IndentWidth"  : 2           ,
