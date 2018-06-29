@@ -52,7 +52,8 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-set guifont=Hack\ Bold:h14
+"set guifont=Hack:h14
+set guifont=Fantasque\ Sans\ Mono:h14
 
 syntax on
 filetype plugin indent on
