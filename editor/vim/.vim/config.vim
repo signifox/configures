@@ -106,7 +106,6 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'alpertuna/vim-header'
-Plug 'whatot/gtags-cscope.vim'
 Plug 'skielbasa/vim-material-monokai'
 
 
