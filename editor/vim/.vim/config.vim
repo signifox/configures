@@ -52,8 +52,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-"set guifont=Hack:h14
-set guifont=Fantasque\ Sans\ Mono:h14
+set guifont=Hack\ Bold:h14
 
 syntax on
 filetype plugin indent on
@@ -107,7 +106,9 @@ Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'alpertuna/vim-header'
 Plug 'skielbasa/vim-material-monokai'
-
+Plug 'justmao945/vim-clang'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
 
 
 call plug#end()
@@ -215,6 +216,24 @@ let g:clang_format#style_options = {
     \ "BasedOnStyle" : "Google"    ,
     \ "IndentWidth"  : 2           ,
     \ "TabWidth"     : 2           }
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-clang
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:clang_c_options = '-std=gnu11'
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"gtags
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+let g:gutentags_project_root = ['.root']
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_auto_add_gtags_cscope = 0
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
