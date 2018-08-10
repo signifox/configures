@@ -45,6 +45,7 @@
           company
           irony
           company-irony
+          helm-gtags
           rainbow-delimiters
           ido-vertical-mode
           clang-format
@@ -62,6 +63,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "C-x s") 'avy-goto-char-2)
+(global-set-key (kbd "C-x f") 'clang-format)
 
 
 ;;;; emacs lisp
@@ -82,7 +84,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree smex paredit magit browse-kill-ring))))
+    (helm-gtags darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree smex paredit magit browse-kill-ring))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -134,3 +136,19 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
+
+;; Enable helm-gtags-mode
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'asm-mode-hook 'helm-gtags-mode)
+
+;; Set key bindings
+(eval-after-load "helm-gtags"
+  '(progn
+     (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
+     (define-key helm-gtags-mode-map (kbd "M-r") 'helm-gtags-find-rtag)
+     (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
+     (define-key helm-gtags-mode-map (kbd "M-g M-p") 'helm-gtags-parse-file)
+     (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+     (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
+     (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
