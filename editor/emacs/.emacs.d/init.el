@@ -18,7 +18,7 @@
 (setq show-paren-style 'parenthesis)
 (setq show-paren-style 'expression)
 (setq show-paren-style 'mixed)
-(setq max-mini-window-height 0.5)
+(setq max-mini-window-height 0.8)
 
 (add-to-list 'default-frame-alist '(font . "Pragmata Pro Mono-12"))
 
