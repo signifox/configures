@@ -1,4 +1,4 @@
-;;; package --- Summary
+;; package --- Summary
 ;;; Commentary:
 
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -9,6 +9,7 @@
 (show-paren-mode 1)
 (global-hl-line-mode 1)
 (display-time-mode 1)
+(global-linum-mode t)
 (setq-default indent-tabs-mode nil)
 (setq inhibit-startup-screen t)
 (setq column-number-mode t)
@@ -41,19 +42,25 @@
         '(browse-kill-ring
           magit
           paredit
-          smex
           evil
+          smex
           avy
           company
           irony
           company-irony
-          helm-gtags
+          use-package
+          ivy
+          counsel
+          counsel-gtags
+          swiper
           flycheck
-          flycheck-irony
+          yasnippet
+          yasnippet-snippets
           rainbow-delimiters
           ido-vertical-mode
           clang-format
           darcula-theme
+          airline-themes
           undo-tree)))
 
 ;;;; macros
@@ -64,7 +71,6 @@
      '(progn ,@body)))
 
 ;;;; global key bindings
-(global-set-key (kbd "M-x")   'smex)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x s") 'avy-goto-char-2)
 (global-set-key (kbd "C-x f") 'clang-format)
@@ -84,11 +90,11 @@
  '(custom-enabled-themes (quote (darcula)))
  '(custom-safe-themes
    (quote
-    ("3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
+    ("b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (flycheck-irony flycheck helm-gtags darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree smex paredit magit browse-kill-ring))))
+    (smex counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -102,9 +108,6 @@
 
 
 (setq clang-format-style (concat "{BasedOnStyle: Google}"))
-
-(require 'undo-tree)
-(global-undo-tree-mode)
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
@@ -138,32 +141,68 @@
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 
-;; Enable helm-gtags-mode
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'asm-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook 'counsel-gtags-mode)
+(add-hook 'c++-mode-hook 'counsel-gtags-mode)
 
-;; Set key bindings
-(eval-after-load "helm-gtags"
-  '(progn
-     (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
-     (define-key helm-gtags-mode-map (kbd "M-r") 'helm-gtags-find-rtag)
-     (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
-     (define-key helm-gtags-mode-map (kbd "M-g M-p") 'helm-gtags-parse-file)
-     (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-     (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
-     (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
+(with-eval-after-load 'counsel-gtags
+  (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
+  (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
+  (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
+  (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward))
 
-(package-install 'flycheck)
-(global-flycheck-mode)
+(require 'undo-tree)
+(global-undo-tree-mode)
 
-(package-install 'evil)
+(require 'evil)
 (evil-mode 1)
+
+(require 'flycheck)
+(global-flycheck-mode)
 
 (add-hook 'c++-mode-hook 'flycheck-mode)
 (add-hook 'c-mode-hook 'flycheck-mode)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+(require 'airline-themes)
+(load-theme 'airline-light)
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(use-package ivy :ensure t
+  :diminish (ivy-mode . "")
+  :bind
+  (:map ivy-mode-map
+        ("C-'" . ivy-avy))
+  :config
+  (ivy-mode 1)
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 10)
+  ;; does not count candidates
+  (setq ivy-count-format "")
+  ;; no regexp by default
+  (setq ivy-initial-inputs-alist nil)
+  ;; configure regexp engine.
+  (setq ivy-re-builders-alist
+	  ;; allow input not in order
+        '((t   . ivy--regex-ignore-order))))
+
+
+
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-rg)
+(global-set-key (kbd "C-x l") 'counsel-locate)
 
 ;;; init.el ends here
 
