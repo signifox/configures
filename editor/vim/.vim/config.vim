@@ -109,6 +109,8 @@ Plug 'skielbasa/vim-material-monokai'
 Plug 'justmao945/vim-clang'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
+Plug 'easymotion/vim-easymotion'
+Plug 'bling/vim-bufferline'
 
 
 call plug#end()
@@ -234,6 +236,17 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_auto_add_gtags_cscope = 0
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-easymotion
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map f <Plug>(easymotion-prefix)
+map ff <Plug>(easymotion-s)
+map fs <Plug>(easymotion-f)
+map fl <Plug>(easymotion-lineforward)
+map fj <Plug>(easymotion-j)
+map fk <Plug>(easymotion-k)
+map fh <Plug>(easymotion-linebackward)
+let g:EasyMotion_smartcase = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
