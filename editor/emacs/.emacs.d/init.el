@@ -1,4 +1,6 @@
-;; Turn off mouse interface early in startup to avoid momentary display
+;;; package --- Summary
+;;; Commentary:
+
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -46,6 +48,8 @@
           irony
           company-irony
           helm-gtags
+          flycheck
+          flycheck-irony
           rainbow-delimiters
           ido-vertical-mode
           clang-format
@@ -60,8 +64,8 @@
      '(progn ,@body)))
 
 ;;;; global key bindings
+(global-set-key (kbd "M-x")   'smex)
 (global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "C-x s") 'avy-goto-char-2)
 (global-set-key (kbd "C-x f") 'clang-format)
 
@@ -84,7 +88,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (helm-gtags darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree smex paredit magit browse-kill-ring))))
+    (flycheck-irony flycheck helm-gtags darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree smex paredit magit browse-kill-ring))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -98,9 +102,6 @@
 
 
 (setq clang-format-style (concat "{BasedOnStyle: Google}"))
-
-(require 'evil)
-(evil-mode 1)
 
 (require 'undo-tree)
 (global-undo-tree-mode)
@@ -152,3 +153,18 @@
      (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
      (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
+
+(package-install 'flycheck)
+(global-flycheck-mode)
+
+(package-install 'evil)
+(evil-mode 1)
+
+(add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'c-mode-hook 'flycheck-mode)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+;;; init.el ends here
+
+
