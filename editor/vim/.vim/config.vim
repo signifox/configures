@@ -98,7 +98,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
-Plug 'fholgado/minibufexpl.vim'
+"Plug 'fholgado/minibufexpl.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -108,7 +108,6 @@ Plug 'alpertuna/vim-header'
 Plug 'skielbasa/vim-material-monokai'
 Plug 'justmao945/vim-clang'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
 Plug 'easymotion/vim-easymotion'
 Plug 'bling/vim-bufferline'
 
@@ -225,16 +224,6 @@ let g:clang_format#style_options = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:clang_c_options = '-std=gnu11'
 let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"gtags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-let g:gutentags_modules = ['ctags', 'gtags_cscope']
-let g:gutentags_project_root = ['.root']
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-let g:gutentags_auto_add_gtags_cscope = 0
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-easymotion

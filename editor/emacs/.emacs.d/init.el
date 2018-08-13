@@ -40,27 +40,14 @@
            (unless (package-installed-p package)
              (package-install package)))
         '(browse-kill-ring
-          magit
           paredit
           evil
-          smex
-          avy
-          company
-          irony
-          company-irony
           use-package
           ivy
           counsel
           counsel-gtags
           swiper
-          flycheck
-          yasnippet
-          yasnippet-snippets
-          rainbow-delimiters
-          ido-vertical-mode
-          clang-format
           darcula-theme
-          airline-themes
           undo-tree)))
 
 ;;;; macros
@@ -89,7 +76,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (material-theme smex counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring))))
+    (smex material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -109,21 +96,6 @@
 
 (after "rainbow-delimiters-autoloads"
  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable))
-
-(progn
-  (require 'ido)
-  (ido-mode 1)
-  (if (version< emacs-version "25")
-      (progn
-        (make-local-variable 'ido-separator)
-        (setq ido-separator "\n"))
-    (progn
-      (make-local-variable 'ido-decorations)
-      (setf (nth 2 ido-decorations) "\n")))
-  (setq ido-enable-flex-matching t)
-  (setq ido-default-file-method 'selected-window)
-  (setq ido-default-buffer-method 'selected-window)
-  (define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil))
 
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'c-mode-hook 'company-mode)
