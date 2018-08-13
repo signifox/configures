@@ -70,11 +70,6 @@
   `(eval-after-load ,mode
      '(progn ,@body)))
 
-;;;; global key bindings
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x s") 'avy-goto-char-2)
-(global-set-key (kbd "C-x f") 'clang-format)
-
 
 ;;;; emacs lisp
 (defun imenu-elisp-sections ()
@@ -144,12 +139,6 @@
 (add-hook 'c-mode-hook 'counsel-gtags-mode)
 (add-hook 'c++-mode-hook 'counsel-gtags-mode)
 
-(with-eval-after-load 'counsel-gtags
-  (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
-  (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
-  (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
-  (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward))
-
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -188,6 +177,8 @@
 	  ;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
 
+
+;;;; global key bindings
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -201,6 +192,16 @@
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c k") 'counsel-rg)
 (global-set-key (kbd "C-x l") 'counsel-locate)
+
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x s") 'avy-goto-char-2)
+(global-set-key (kbd "C-x f") 'clang-format)
+
+(after "counsel-gtags"
+  (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
+  (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
+  (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
+  (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward))
 
 ;;; init.el ends here
 
