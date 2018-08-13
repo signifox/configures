@@ -23,7 +23,7 @@
 (setq show-paren-style 'mixed)
 (setq max-mini-window-height 0.8)
 
-(add-to-list 'default-frame-alist '(font . "Pragmata Pro Mono-12"))
+(set-default-font "Hack 16")
 
 ;;;; package.el
 (require 'package)
@@ -87,14 +87,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (darcula)))
+ '(custom-enabled-themes (quote (material-light)))
  '(custom-safe-themes
    (quote
-    ("b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
+    ("732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (smex counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring))))
+    (material-theme smex counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format ido-vertical-mode rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -187,8 +187,6 @@
   (setq ivy-re-builders-alist
 	  ;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
-
-
 
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
