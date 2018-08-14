@@ -9,11 +9,11 @@
 (show-paren-mode 1)
 (global-hl-line-mode 1)
 (display-time-mode 1)
-(global-linum-mode t)
 (setq-default indent-tabs-mode nil)
 (setq inhibit-startup-screen t)
 (setq column-number-mode t)
 (setq line-number-mode t)
+(global-linum-mode t)
 (setq display-time-24hr-format t)
 (setq inhibit-startup-screen t)
 (setq make-backup-files nil)
@@ -45,7 +45,6 @@
           use-package
           ivy
           counsel
-          counsel-gtags
           swiper
           darcula-theme
           undo-tree)))
@@ -69,14 +68,42 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (material-light)))
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   (vector "#212121" "#B71C1C" "#558b2f" "#FFA000" "#2196f3" "#4527A0" "#00796b" "#FAFAFA"))
+ '(custom-enabled-themes (quote (darcula)))
  '(custom-safe-themes
    (quote
-    ("732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
+    ("73a13a70fd111a6cd47f3d4be2260b1e4b717dbf635a9caee6442c949fad41cd" "732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
+ '(fci-rule-color "#dadada")
+ '(hl-sexp-background-color "#efebe9")
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (smex material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring))))
+    (imenu-anywhere projectile color-theme-approximate smex material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring)))
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#B71C1C")
+     (40 . "#FF5722")
+     (60 . "#FFA000")
+     (80 . "#558b2f")
+     (100 . "#00796b")
+     (120 . "#2196f3")
+     (140 . "#4527A0")
+     (160 . "#B71C1C")
+     (180 . "#FF5722")
+     (200 . "#FFA000")
+     (220 . "#558b2f")
+     (240 . "#00796b")
+     (260 . "#2196f3")
+     (280 . "#4527A0")
+     (300 . "#B71C1C")
+     (320 . "#FF5722")
+     (340 . "#FFA000")
+     (360 . "#558b2f"))))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -126,6 +153,8 @@
 (require 'airline-themes)
 (load-theme 'airline-light)
 
+(color-theme-approximate-on)
+
 (require 'yasnippet)
 (yas-global-mode 1)
 
@@ -149,6 +178,13 @@
 	  ;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
 
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "<f4>") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(setq projectile-completion-system 'ivy)
+
+(global-set-key (kbd "<f3>") #'imenu-anywhere)
+(global-set-key (kbd "<f5>")  'clang-format-buffer)
 
 ;;;; global key bindings
 (global-set-key (kbd "C-s") 'swiper)
@@ -167,7 +203,7 @@
 
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x s") 'avy-goto-char-2)
-(global-set-key (kbd "C-x f") 'clang-format)
+(global-set-key (kbd "C-x f") 'clang-format-buffer)
 
 (after "counsel-gtags"
   (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
