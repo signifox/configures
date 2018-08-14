@@ -82,27 +82,6 @@
  '(package-selected-packages
    (quote
     (imenu-anywhere projectile color-theme-approximate smex material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring)))
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#B71C1C")
-     (40 . "#FF5722")
-     (60 . "#FFA000")
-     (80 . "#558b2f")
-     (100 . "#00796b")
-     (120 . "#2196f3")
-     (140 . "#4527A0")
-     (160 . "#B71C1C")
-     (180 . "#FF5722")
-     (200 . "#FFA000")
-     (220 . "#558b2f")
-     (240 . "#00796b")
-     (260 . "#2196f3")
-     (280 . "#4527A0")
-     (300 . "#B71C1C")
-     (320 . "#FF5722")
-     (340 . "#FFA000")
-     (360 . "#558b2f"))))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -175,15 +154,18 @@
   (setq ivy-initial-inputs-alist nil)
   ;; configure regexp engine.
   (setq ivy-re-builders-alist
-	  ;; allow input not in order
+  ;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
 
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "<f4>") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(setq projectile-completion-system 'ivy)
 
-(global-set-key (kbd "<f3>") #'imenu-anywhere)
+
+(setq projectile-completion-system 'ivy)
+(setq magit-completing-read-function 'ivy-completing-read)
+
+(global-set-key (kbd "<f3>")  'imenu-anywhere)
 (global-set-key (kbd "<f5>")  'clang-format-buffer)
 
 ;;;; global key bindings
@@ -210,6 +192,23 @@
   (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
   (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
   (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward))
+
+
+(defun vsplit-last-buffer ()
+  (interactive)
+  (split-window-vertically)
+  (other-window 1 nil)
+  (switch-to-next-buffer)
+  )
+(defun hsplit-last-buffer ()
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1 nil)
+  (switch-to-next-buffer)
+  )
+ 
+(global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
+(global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
 ;;; init.el ends here
 
