@@ -210,6 +210,11 @@
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
+(global-set-key (kbd "M-C-h") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-C-j") 'enlarge-window)
+(global-set-key (kbd "M-C-k") 'shrink-window)
+(global-set-key (kbd "M-C-l") 'shrink-window-horizontally)
+
 ;;; init.el ends here
 
 
