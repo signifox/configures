@@ -1,4 +1,4 @@
-;;; package-- - Summary
+;;; package --- Summary
 ; Commentary:
 
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -81,7 +81,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (dired-sidebar imenu-anywhere material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring)))
+    (ibuffer-sidebar dired-sidebar imenu-anywhere material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring)))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -188,6 +188,18 @@
   (setq dired-sidebar-subtree-line-prefix "-+-")
   (setq dired-sidebar-use-term-integration t))
 
+(use-package ibuffer-sidebar
+  :ensure nil
+  :commands (ibuffer-sidebar-toggle-sidebar)
+  :config
+  (setq ibuffer-sidebar-use-custom-font t)
+  (setq ibuffer-sidebar-face `(:family "Helvetica" :height 140)))
+
+(defun sidebar-toggle ()
+  "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
+  (interactive)
+  (dired-sidebar-toggle-sidebar)
+  (ibuffer-sidebar-toggle-sidebar))
 
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)
@@ -195,7 +207,7 @@
 (global-set-key (kbd "<f5>")  'clang-format-buffer)
 (global-set-key (kbd "<f6>")  'counsel-rg)
 (global-set-key (kbd "<f7>")  'avy-goto-char-2)
-(global-set-key (kbd "<f8>")  'dired-sidebar-toggle-sidebar)
+(global-set-key (kbd "<f8>")  'sidebar-toggle)
 (global-set-key (kbd "<f9>")  'counsel-gtags-find-definition)
 (global-set-key (kbd "<f10>") 'counsel-gtags-go-forward)
 
