@@ -1,5 +1,5 @@
-;; package --- Summary
-;;; Commentary:
+;;; package-- - Summary
+; Commentary:
 
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -75,13 +75,13 @@
  '(custom-enabled-themes (quote (darcula)))
  '(custom-safe-themes
    (quote
-    ("73a13a70fd111a6cd47f3d4be2260b1e4b717dbf635a9caee6442c949fad41cd" "732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
+    ("b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
  '(fci-rule-color "#dadada")
  '(hl-sexp-background-color "#efebe9")
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (imenu-anywhere projectile color-theme-approximate smex material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring)))
+    (dired-sidebar imenu-anywhere material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring)))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -94,6 +94,22 @@
   (interactive)
   (load-file user-init-file))
 
+(defun vsplit-last-buffer ()
+  (interactive)
+  (split-window-vertically)
+  (other-window 1 nil)
+  (switch-to-next-buffer)
+  )
+
+(defun hsplit-last-buffer ()
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1 nil)
+  (switch-to-next-buffer)
+  )
+ 
+(global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
+(global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
 (setq clang-format-style (concat "{BasedOnStyle: Google}"))
 
@@ -132,12 +148,11 @@
 (require 'airline-themes)
 (load-theme 'airline-light)
 
-(color-theme-approximate-on)
-
 (require 'yasnippet)
 (yas-global-mode 1)
 
-(use-package ivy :ensure t
+(use-package ivy
+  :ensure t
   :diminish (ivy-mode . "")
   :bind
   (:map ivy-mode-map
@@ -157,18 +172,33 @@
   ;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
 
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "<f4>") 'projectile-command-map)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(use-package dired-sidebar
+  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
+  :config
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
 
+  (setq dired-sidebar-subtree-line-prefix "-+-")
+  (setq dired-sidebar-use-term-integration t))
 
-(setq projectile-completion-system 'ivy)
-(setq magit-completing-read-function 'ivy-completing-read)
-
-(global-set-key (kbd "<f3>")  'imenu-anywhere)
-(global-set-key (kbd "<f5>")  'clang-format-buffer)
 
 ;;;; global key bindings
+(global-set-key (kbd "<f3>")  'imenu-anywhere)
+(global-set-key (kbd "<f4>")  'counsel-find-file)
+(global-set-key (kbd "<f5>")  'clang-format-buffer)
+(global-set-key (kbd "<f6>")  'counsel-rg)
+(global-set-key (kbd "<f7>")  'avy-goto-char-2)
+(global-set-key (kbd "<f8>")  'dired-sidebar-toggle-sidebar)
+(global-set-key (kbd "<f9>")  'counsel-gtags-find-definition)
+(global-set-key (kbd "<f10>") 'counsel-gtags-go-forward)
+
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -183,9 +213,6 @@
 (global-set-key (kbd "C-c k") 'counsel-rg)
 (global-set-key (kbd "C-x l") 'counsel-locate)
 
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x s") 'avy-goto-char-2)
-(global-set-key (kbd "C-x f") 'clang-format-buffer)
 
 (after "counsel-gtags"
   (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
@@ -193,28 +220,4 @@
   (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
   (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward))
 
-
-(defun vsplit-last-buffer ()
-  (interactive)
-  (split-window-vertically)
-  (other-window 1 nil)
-  (switch-to-next-buffer)
-  )
-(defun hsplit-last-buffer ()
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1 nil)
-  (switch-to-next-buffer)
-  )
- 
-(global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
-(global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
-
-(global-set-key (kbd "M-C-h") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-C-j") 'enlarge-window)
-(global-set-key (kbd "M-C-k") 'shrink-window)
-(global-set-key (kbd "M-C-l") 'shrink-window-horizontally)
-
 ;;; init.el ends here
-
-
