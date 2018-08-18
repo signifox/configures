@@ -52,7 +52,8 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-set guifont=Hack\ Bold:h14
+"set guifont=Hack:h14
+set guifont=Pragmata\ Pro\ Mono:h14
 
 syntax on
 filetype plugin indent on
@@ -169,7 +170,6 @@ elseif has("unix")
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 endif
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-autopep8
