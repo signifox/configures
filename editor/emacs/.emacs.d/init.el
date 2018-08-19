@@ -2,19 +2,17 @@
 ;;; Commentary:
 
 ;;; Code:
-(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(when (fboundp 'menu-bar-mode) (menu-bar-mode 1))
+(when (fboundp 'tool-bar-mode) (tool-bar-mode 1))
+(when (fboundp 'scroll-bar-mode) (scroll-bar-mode 1))
 
-;; No splash screen please... jeez
 (show-paren-mode 1)
 (global-hl-line-mode 1)
 (display-time-mode 1)
-(setq-default indent-tabs-mode nil)
+(global-linum-mode t)
 (setq inhibit-startup-screen t)
 (setq column-number-mode t)
 (setq line-number-mode t)
-(global-linum-mode t)
 (setq display-time-24hr-format t)
 (setq inhibit-startup-screen t)
 (setq make-backup-files nil)
@@ -23,8 +21,8 @@
 (setq show-paren-style 'expression)
 (setq show-paren-style 'mixed)
 (setq max-mini-window-height 0.8)
-
-(set-default-font "Hack 16")
+(setq-default indent-tabs-mode nil)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;;;; package.el
 (require 'package)
@@ -33,149 +31,80 @@
                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
-(defun mp-install-packages ()
-  "Install only the sweetest of packages."
-  (interactive)
+(unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (mapc '(lambda (package)
-           (unless (package-installed-p package)
-             (package-install package)))
-        '(browse-kill-ring
-          paredit
-          evil
-          use-package
-          ivy
-          counsel
-          swiper
-          darcula-theme
-          undo-tree)))
+  (package-install 'use-package))
 
-;;;; macros
-(defmacro after (mode &rest body)
-  "`eval-after-load' MODE evaluate BODY."
-  (declare (indent defun))
-  `(eval-after-load ,mode
-     '(progn ,@body)))
-
-
-;;;; emacs lisp
-(defun imenu-elisp-sections ()
-  (setq imenu-prev-index-position-function nil)
-  (add-to-list 'imenu-generic-expression '("Sections" "^;;;; \\(.+\\)$" 1) t))
-
-(add-hook 'emacs-lisp-mode-hook 'imenu-elisp-sections)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   (vector "#212121" "#B71C1C" "#558b2f" "#FFA000" "#2196f3" "#4527A0" "#00796b" "#FAFAFA"))
- '(custom-enabled-themes (quote (darcula)))
- '(custom-safe-themes
-   (quote
-    ("b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" default)))
- '(fci-rule-color "#dadada")
- '(hl-sexp-background-color "#efebe9")
- '(initial-frame-alist (quote ((fullscreen . maximized))))
- '(package-selected-packages
-   (quote
-    (flycheck-rust rust-mode ibuffer-sidebar dired-sidebar imenu-anywhere material-theme counsel counsel-gtags swiper ivy use-package yasnippet-snippets airline-themes flycheck darcula-theme clang-format rainbow-delimiters company-irony irony company avy evil undo-tree paredit magit browse-kill-ring)))
- '(vc-annotate-very-old-color nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-(defun reload-user-init-file()
-  (interactive)
-  (load-file user-init-file))
+(require 'use-package)
 
 (defun vsplit-last-buffer ()
+  "Vsplit."
   (interactive)
   (split-window-vertically)
   (other-window 1 nil)
   (switch-to-next-buffer)
   )
-
 (defun hsplit-last-buffer ()
+  "Hsplit."
   (interactive)
   (split-window-horizontally)
   (other-window 1 nil)
   (switch-to-next-buffer)
   )
- 
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
-(setq clang-format-style (concat "{BasedOnStyle: Google}"))
 
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
+ '(package-selected-packages
+   (quote
+    (yasnippet clang-format avy smart-mode-line auto-package-update dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-org evil-indent-textobject evil-surround evil-leader evil use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(set-default-font "Pragmata Pro Mono 16"))
 
-(defun eshell-here ()
-  "Opens up a new shell in the directory associated with the
-current buffer's file. The eshell is renamed to match that
-directory to make multiple eshell windows easier."
-  (interactive)
-  (let* ((parent (if (buffer-file-name)
-                     (file-name-directory (buffer-file-name))
-                   default-directory))
-         (height (/ (window-total-height) 3))
-         (name   (car (last (split-string parent "/" t)))))
-    (split-window-vertically (- height))
-    (other-window 1)
-    (eshell "new")
-    (rename-buffer (concat "*eshell: " name "*"))
+;; Evil Mode
+(use-package evil
+  :ensure t
+  :config
+  (evil-mode 1)
 
-    (insert (concat "ls"))
-    (eshell-send-input)))
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode t)
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+      "s s" 'swiper))
 
+  (use-package evil-surround
+    :ensure t
+    :config (global-evil-surround-mode))
 
+  (use-package evil-indent-textobject
+    :ensure t)
 
-(after "rainbow-delimiters-autoloads"
- (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable))
+  (use-package evil-org
+    :ensure t
+    :config
+    (evil-org-set-key-theme
+     '(textobjects insert navigation additional shift todo heading))
+    (add-hook 'org-mode-hook (lambda () (evil-org-mode))))
 
-(add-hook 'after-init-hook 'global-company-mode)
-(add-hook 'c-mode-hook 'company-mode)
-(add-hook 'c++-mode-hook 'company-mode)
-
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-(add-hook 'c-mode-hook 'counsel-gtags-mode)
-(add-hook 'c++-mode-hook 'counsel-gtags-mode)
-
-(require 'undo-tree)
-(global-undo-tree-mode)
-
-(require 'evil)
-(evil-mode 1)
-
-(require 'flycheck)
-(global-flycheck-mode)
-
-(add-hook 'c++-mode-hook 'flycheck-mode)
-(add-hook 'c-mode-hook 'flycheck-mode)
-
-(require 'airline-themes)
-(load-theme 'airline-light)
-
-(require 'yasnippet)
-(yas-global-mode 1)
-
-(setq rust-format-on-save t)
-(with-eval-after-load 'rust-mode
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-
+  (use-package powerline-evil
+    :ensure t
+    :config
+    (powerline-evil-vim-color-theme)))
 
 (use-package ivy
   :ensure t
@@ -196,7 +125,163 @@ directory to make multiple eshell windows easier."
   ;; configure regexp engine.
   (setq ivy-re-builders-alist
   ;; allow input not in order
-        '((t   . ivy--regex-ignore-order))))
+  '((t   . ivy--regex-ignore-order))))
+
+(use-package swiper
+  :ensure t
+  :bind
+  ("C-s" . swiper))
+
+(use-package counsel
+  :ensure t
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file)
+  ("C-x C-r" . counsel-recentf)
+  ("C-x j" . counsel-mark-ring)
+  ("C-c L" . counsel-load-library)
+  ("C-c P" . counsel-package)
+  ("C-c f" . counsel-find-library)
+  ("C-c g" . counsel-grep)
+  ("C-c h" . counsel-command-history)
+  ("C-c i" . counsel-git)
+  ("C-c j" . counsel-git-grep)
+  ("C-c l" . counsel-locate)
+  ("C-c r" . counsel-rg)
+  :hook ((after-init . ivy-mode)
+         (ivy-mode . counsel-mode))
+  :config
+  (setq enable-recursive-minibuffers t)
+  (setq ivy-use-selectable-prompt t)
+  (setq ivy-use-virtual-buffers t)`
+  (setq ivy-height 10)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-on-del-error-function nil)
+  (setq ivy-format-function 'ivy-format-function-arrow))
+
+(use-package counsel-gtags
+  :ensure t
+  :init
+  (add-hook 'c-mode-hook 'counsel-gtags-mode)
+  (add-hook 'c++-mode-hook 'counsel-gtags-mode)
+  :bind
+  ("M-t" . counsel-gtags-find-definition)
+  ("M-r" . counsel-gtags-find-reference)
+  ("M-s" . counsel-gtags-find-symbol)
+  ("M-," . counsel-gtags-go-backward))
+
+(use-package flx
+ :ensure t)
+
+(use-package smex
+ :ensure t)
+
+(use-package magit
+  :ensure t)
+
+;; magit
+(use-package magit
+  :ensure t
+  :config
+  (setq magit-completing-read-function 'ivy-completing-read)
+  :diminish auto-revert-mode)
+
+;; gitignore-mode
+(use-package gitignore-mode
+  :ensure t
+  :config
+  (add-hook 'gitignore-mode-hook (lambda ()
+                                   (setq require-final-newline t))))
+
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config
+  (global-undo-tree-mode 1))
+
+(use-package clang-format
+  :ensure t
+  :config
+  (setq clang-format-style (concat "{BasedOnStyle: Google}"))
+  :commands clang-format clang-format-buffer clang-format-region)
+
+(use-package company
+  :ensure t
+  :defer t
+  :init
+  (global-company-mode)
+  (add-hook 'c-mode-hook #'company-mode)
+  (add-hook 'c++-mode-hook #'company-mode)
+  :config
+  (progn
+    ;; Use Company for completion
+    (bind-key [remap completion-at-point] #'company-complete company-mode-map)
+
+    (setq company-tooltip-align-annotations t
+          ;; Easy navigation to candidates with M-<n>
+          company-show-numbers t)
+    (setq company-dabbrev-downcase nil))
+  :bind
+  ("M-/" . company-complete-common)
+  :diminish company-mode)
+
+(use-package irony
+  :ensure t
+  :defer t
+  :config
+  (progn
+    (use-package company-irony
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-irony))
+    (add-hook 'irony-mode-hook #'electric-pair-mode)
+    (add-hook 'c++-mode-hook #'irony-mode)
+    (add-hook 'c-mode-hook #'irony-mode)
+    (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
+    (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)))
+
+(use-package flycheck
+  :ensure t
+  :defer t
+  :init
+  (global-flycheck-mode)
+  :config
+  (progn
+    (add-hook 'c++-mode-hook #'flycheck-mode)
+    (add-hook 'c-mode-hook #'flycheck-mode)))
+
+(use-package avy
+  :ensure t
+  :bind
+  ("C-'" . avy-goto-char)
+  ("C-;" . avy-goto-char-2))
+
+(use-package yasnippet
+  :ensure t
+  :init
+  (yas-global-mode)
+  :config
+  (yas-reload-all)
+
+  (use-package yasnippet-snippets
+   :ensure t))
+
+(use-package smart-mode-line
+  :ensure t
+  :config
+  (progn
+    (tool-bar-mode -1)
+    (setq sml/theme 'respectful)
+    (setq sml/name-width 40)
+    (setq sml/mode-width 'full)
+    (set-face-attribute 'mode-line nil :box nil)
+    (add-to-list 'sml/replacer-regexp-list '("^~/src/" ":src:") t)))
+
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (auto-package-update-maybe))
 
 (use-package dired-sidebar
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
@@ -221,11 +306,34 @@ directory to make multiple eshell windows easier."
   (setq ibuffer-sidebar-use-custom-font t)
   (setq ibuffer-sidebar-face `(:family "Helvetica" :height 140)))
 
-(defun sidebar-toggle ()
+(defun vsidebar()
   "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
   (interactive)
   (dired-sidebar-toggle-sidebar)
   (ibuffer-sidebar-toggle-sidebar))
+
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+(defun vshell ()
+  "Eshell Here."
+  (interactive)
+  (let* ((parent (if (buffer-file-name)
+                     (file-name-directory (buffer-file-name))
+                   default-directory))
+         (height (/ (window-total-height) 3))
+         (name   (car (last (split-string parent "/" t)))))
+    (split-window-vertically (- height))
+    (other-window 1)
+    (eshell "new")
+    (rename-buffer (concat "*eshell: " name "*"))
+    (insert (concat "ls"))
+    (eshell-send-input)))
+
+(defun vreload()
+  "Reload."
+  (interactive)
+  (load-file user-init-file))
+
 
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)
@@ -233,30 +341,6 @@ directory to make multiple eshell windows easier."
 (global-set-key (kbd "<f5>")  'clang-format-buffer)
 (global-set-key (kbd "<f6>")  'counsel-rg)
 (global-set-key (kbd "<f7>")  'avy-goto-char-2)
-(global-set-key (kbd "<f8>")  'sidebar-toggle)
-(global-set-key (kbd "<f9>")  'counsel-gtags-find-definition)
-(global-set-key (kbd "<f10>") 'counsel-gtags-go-forward)
-(global-set-key (kbd "<f12>") 'eshell-here)
-
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-rg)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-
-
-(after "counsel-gtags"
-  (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
-  (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
-  (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
-  (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward))
+(global-set-key (kbd "<f8>")  'vsidebar)
 
 ;;; init.el ends here
