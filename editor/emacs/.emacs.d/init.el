@@ -14,7 +14,7 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 (setq display-time-24hr-format t)
-(setq inhibit-startup-screen t)
+(setq require-final-newline t)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq show-paren-style 'parenthesis)
@@ -23,6 +23,8 @@
 (setq max-mini-window-height 0.8)
 (setq-default indent-tabs-mode nil)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;;;; package.el
 (require 'package)
@@ -65,7 +67,7 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
  '(package-selected-packages
    (quote
-    (yasnippet clang-format avy smart-mode-line auto-package-update dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-org evil-indent-textobject evil-surround evil-leader evil use-package))))
+    (ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy smart-mode-line auto-package-update dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-org evil-indent-textobject evil-surround evil-leader evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -177,21 +179,23 @@
  :ensure t)
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :bind (("C-x g" . magit-status)))
 
-;; magit
-(use-package magit
+(use-package abbrev
+  :config
+  (setq save-abbrevs 'silently)
+  (setq-default abbrev-mode t))
+
+(use-package hl-todo
   :ensure t
   :config
-  (setq magit-completing-read-function 'ivy-completing-read)
-  :diminish auto-revert-mode)
+  (global-hl-todo-mode))
 
-;; gitignore-mode
-(use-package gitignore-mode
+(use-package imenu-anywhere
   :ensure t
-  :config
-  (add-hook 'gitignore-mode-hook (lambda ()
-                                   (setq require-final-newline t))))
+  :bind (("C-c i" . imenu-anywhere)
+         ("s-i" . imenu-anywhere)))
 
 (use-package undo-tree
   :ensure t
@@ -250,6 +254,8 @@
     (add-hook 'c++-mode-hook #'flycheck-mode)
     (add-hook 'c-mode-hook #'flycheck-mode)))
 
+
+
 (use-package avy
   :ensure t
   :bind
@@ -284,7 +290,6 @@
   (auto-package-update-maybe))
 
 (use-package dired-sidebar
-  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
   :ensure t
   :commands (dired-sidebar-toggle-sidebar)
   :init
@@ -300,7 +305,7 @@
   (setq dired-sidebar-use-term-integration t))
 
 (use-package ibuffer-sidebar
-  :ensure nil
+  :ensure t
   :commands (ibuffer-sidebar-toggle-sidebar)
   :config
   (setq ibuffer-sidebar-use-custom-font t)
