@@ -22,7 +22,7 @@
 (setq show-paren-style 'mixed)
 (setq max-mini-window-height 0.8)
 (setq-default indent-tabs-mode nil)
-;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -56,18 +56,18 @@
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (gruvbox-light-soft)))
  '(custom-safe-themes
    (quote
-    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
+    ("7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" default)))
  '(package-selected-packages
    (quote
-    (ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy smart-mode-line dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
+    (gruvbox-theme ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy smart-mode-line dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -156,7 +156,6 @@
   (setq ivy-format-function 'ivy-format-function-arrow))
 
 (use-package counsel-gtags
-  :ensure t
   :init
   (add-hook 'c-mode-hook 'counsel-gtags-mode)
   (add-hook 'c++-mode-hook 'counsel-gtags-mode)
@@ -165,6 +164,20 @@
   ("M-r" . counsel-gtags-find-reference)
   ("M-s" . counsel-gtags-find-symbol)
   ("M-," . counsel-gtags-go-backward))
+
+(use-package recentf
+  :ensure nil
+  :bind (("C-x f" . recentf-open-files))
+  :config
+  (setq recentf-auto-cleanup 'never)
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 99)
+  (setq recentf-max-menu-items 99)
+  (setq recentf-show-file-shortcuts-flag nil)
+  (setq recentf-exclude
+        '("COMMIT" "autoloads" "archive-contents" "eld" "newsrc"
+          ".recentf" "emacs-font-size.conf"))
+  (add-hook 'find-file-hook #'recentf-save-list))
 
 (use-package flx
  :ensure t)
@@ -276,10 +289,15 @@
     (set-face-attribute 'mode-line nil :box nil)
     (add-to-list 'sml/replacer-regexp-list '("^~/src/" ":src:") t)))
 
-(use-package windmove
+(use-package gruvbox-theme
+  :ensure t
   :config
-  ;; use shift + arrow keys to switch between visible buffers
-  (windmove-default-keybindings))
+  (load-theme 'gruvbox-light-soft))
+
+(use-package ace-window
+  :ensure t
+  :bind (("M-o" . ace-window))
+  :config (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (use-package dired-sidebar
   :ensure t
@@ -311,6 +329,14 @@
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+
+(let ((path (shell-command-to-string ". ~/.zshrc; echo -n $PATH")))
+  (setenv "PATH" path)
+  (setq exec-path
+        (append
+         (split-string-and-unquote path ":")
+         exec-path)))
+
 (defun vshell ()
   "Eshell Here."
   (interactive)
@@ -330,7 +356,6 @@
   "Reload."
   (interactive)
   (load-file user-init-file))
-
 
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)

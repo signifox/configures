@@ -53,7 +53,7 @@ set softtabstop=4
 set shiftwidth=4
 
 "set guifont=Hack:h14
-set guifont=Pragmata\ Pro\ Mono:h14
+set guifont=Pragmata\ Pro\ Mono:h16
 
 syntax on
 filetype plugin indent on
@@ -99,7 +99,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
-Plug 'altercation/vim-colors-solarized'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
@@ -109,6 +108,7 @@ Plug 'skielbasa/vim-material-monokai'
 Plug 'justmao945/vim-clang'
 Plug 'easymotion/vim-easymotion'
 Plug 'bling/vim-bufferline'
+Plug 'morhetz/gruvbox'
 
 
 call plug#end()
@@ -121,8 +121,9 @@ set t_Co=256
 let g:solarized_termcolors=256
 "set background=dark
 set background=light
-"set termguicolors
-colorscheme material-monokai
+set termguicolors
+"colorscheme material-monokai
+colorscheme gruvbox
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
