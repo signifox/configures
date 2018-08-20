@@ -1,10 +1,10 @@
-;;; package --- Summary
+;;; Package --- Summary
 ;;; Commentary:
 
 ;;; Code:
-(when (fboundp 'menu-bar-mode) (menu-bar-mode 1))
-(when (fboundp 'tool-bar-mode) (tool-bar-mode 1))
-(when (fboundp 'scroll-bar-mode) (scroll-bar-mode 1))
+(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 (show-paren-mode 1)
 (global-hl-line-mode 1)
@@ -22,7 +22,7 @@
 (setq show-paren-style 'mixed)
 (setq max-mini-window-height 0.8)
 (setq-default indent-tabs-mode nil)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -67,7 +67,7 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
  '(package-selected-packages
    (quote
-    (ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy smart-mode-line auto-package-update dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-org evil-indent-textobject evil-surround evil-leader evil use-package))))
+    (ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy smart-mode-line dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -87,21 +87,15 @@
     (global-evil-leader-mode t)
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "s s" 'swiper))
-
-  (use-package evil-surround
-    :ensure t
-    :config (global-evil-surround-mode))
-
-  (use-package evil-indent-textobject
-    :ensure t)
-
-  (use-package evil-org
-    :ensure t
-    :config
-    (evil-org-set-key-theme
-     '(textobjects insert navigation additional shift todo heading))
-    (add-hook 'org-mode-hook (lambda () (evil-org-mode))))
+      "ff" 'find-file
+      "fr" 'recentf-open-files
+      "bb" 'switch-to-buffer
+      "bk" 'kill-buffer
+      "gt" 'magit-status
+      "w/" 'split-window-right
+      "w-" 'split-window-below
+      ":"  'counsel-M-x
+      "wm" 'delete-other-windows))
 
   (use-package powerline-evil
     :ensure t
@@ -233,16 +227,16 @@
   :ensure t
   :defer t
   :config
-  (progn
-    (use-package company-irony
+  (add-hook 'irony-mode-hook #'electric-pair-mode)
+  (add-hook 'c++-mode-hook #'irony-mode)
+  (add-hook 'c-mode-hook #'irony-mode)
+  (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
+  (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options))
+
+  (use-package company-irony
       :ensure t
       :config
       (add-to-list 'company-backends 'company-irony))
-    (add-hook 'irony-mode-hook #'electric-pair-mode)
-    (add-hook 'c++-mode-hook #'irony-mode)
-    (add-hook 'c-mode-hook #'irony-mode)
-    (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
-    (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)))
 
 (use-package flycheck
   :ensure t
@@ -276,18 +270,16 @@
   :ensure t
   :config
   (progn
-    (tool-bar-mode -1)
     (setq sml/theme 'respectful)
     (setq sml/name-width 40)
     (setq sml/mode-width 'full)
     (set-face-attribute 'mode-line nil :box nil)
     (add-to-list 'sml/replacer-regexp-list '("^~/src/" ":src:") t)))
 
-(use-package auto-package-update
-  :ensure t
+(use-package windmove
   :config
-  (setq auto-package-update-delete-old-versions t)
-  (auto-package-update-maybe))
+  ;; use shift + arrow keys to switch between visible buffers
+  (windmove-default-keybindings))
 
 (use-package dired-sidebar
   :ensure t
