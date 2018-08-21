@@ -2,6 +2,7 @@
 ;;; Commentary:
 
 ;;; Code:
+
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -9,8 +10,10 @@
 (show-paren-mode 1)
 (global-hl-line-mode 1)
 (display-time-mode 1)
-(global-linum-mode t)
+;;(global-linum-mode t)
 (setq inhibit-startup-screen t)
+(global-auto-revert-mode 1)
+
 (setq column-number-mode t)
 (setq line-number-mode t)
 (setq display-time-24hr-format t)
@@ -20,11 +23,15 @@
 (setq show-paren-style 'parenthesis)
 (setq show-paren-style 'expression)
 (setq show-paren-style 'mixed)
+
 (setq max-mini-window-height 0.8)
 (setq-default indent-tabs-mode nil)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (fset 'yes-or-no-p 'y-or-n-p)
+(setq system-time-locale "en_US.utf8")
+(prefer-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
 
 ;;;; package.el
 (require 'package)
@@ -46,6 +53,7 @@
   (other-window 1 nil)
   (switch-to-next-buffer)
   )
+
 (defun hsplit-last-buffer ()
   "Hsplit."
   (interactive)
@@ -53,6 +61,7 @@
   (other-window 1 nil)
   (switch-to-next-buffer)
   )
+
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
@@ -61,27 +70,35 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (gruvbox-light-soft)))
+ '(custom-enabled-themes (quote (dracula)))
  '(custom-safe-themes
    (quote
-    ("7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" default)))
+    ("233bb646e100bda00c0af26afe7ab563ef118b9d685f1ac3ca5387856674285d" "7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" default)))
  '(package-selected-packages
    (quote
-    (gruvbox-theme ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy smart-mode-line dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
+    (rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig gruvbox-theme ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
 
 (when (eq system-type 'darwin)
-  ;; default Latin font (e.g. Consolas)
-  (set-face-attribute 'default nil :family "Pragmata Pro Mono")
-  ;; default font size (point * 10)
-  ;; so that the beginning of the buffer may not be visible correctly. 
-  (set-face-attribute 'default nil :height 165)
-  )
+  (set-face-attribute 'default nil :family "Hack")
+  (set-face-attribute 'default nil :height 165))
+
+(defun vreload()
+  "Reload."
+  (interactive)
+  (load-file user-init-file))
+
+(use-package flx :ensure t)
+(use-package smex :ensure t)
+(use-package darkroom :ensure t)
+(use-package editorconfig :ensure t)
+(use-package rainbow-mode :ensure t)
+(use-package powerline :ensure t)
 
 ;; Evil Mode
 (use-package evil
@@ -100,6 +117,7 @@
       "bb" 'switch-to-buffer
       "bk" 'kill-buffer
       "gt" 'magit-status
+      "dr" 'darkroom-mode
       "w/" 'split-window-right
       "w-" 'split-window-below
       ":"  'counsel-M-x
@@ -129,7 +147,7 @@
   ;; configure regexp engine.
   (setq ivy-re-builders-alist
   ;; allow input not in order
-  '((t   . ivy--regex-ignore-order))))
+  '((t . ivy--regex-ignore-order))))
 
 (use-package swiper
   :ensure t
@@ -173,6 +191,11 @@
   ("M-s" . counsel-gtags-find-symbol)
   ("M-," . counsel-gtags-go-backward))
 
+(use-package hydra
+  :ensure t
+  :config
+  (setq hydra-verbose nil))
+
 (use-package recentf
   :ensure nil
   :bind (("C-x f" . recentf-open-files))
@@ -186,12 +209,6 @@
         '("COMMIT" "autoloads" "archive-contents" "eld" "newsrc"
           ".recentf" "emacs-font-size.conf"))
   (add-hook 'find-file-hook #'recentf-save-list))
-
-(use-package flx
- :ensure t)
-
-(use-package smex
- :ensure t)
 
 (use-package magit
   :ensure t
@@ -252,12 +269,17 @@
   (add-hook 'c++-mode-hook #'irony-mode)
   (add-hook 'c-mode-hook #'irony-mode)
   (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
-  (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options))
+  (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)
 
   (use-package company-irony
       :ensure t
       :config
       (add-to-list 'company-backends 'company-irony))
+
+  (use-package company-irony-c-headers
+  :ensure t
+  :init
+  (add-to-list  'company-backends '(company-irony-c-headers))))
 
 (use-package flycheck
   :ensure t
@@ -268,8 +290,6 @@
   (progn
     (add-hook 'c++-mode-hook #'flycheck-mode)
     (add-hook 'c-mode-hook #'flycheck-mode)))
-
-
 
 (use-package avy
   :ensure t
@@ -287,20 +307,15 @@
   (use-package yasnippet-snippets
    :ensure t))
 
-(use-package smart-mode-line
-  :ensure t
-  :config
-  (progn
-    (setq sml/theme 'respectful)
-    (setq sml/name-width 40)
-    (setq sml/mode-width 'full)
-    (set-face-attribute 'mode-line nil :box nil)
-    (add-to-list 'sml/replacer-regexp-list '("^~/src/" ":src:") t)))
+;;(use-package gruvbox-theme
+;;  :ensure t
+;;  :config
+;;  (load-theme 'gruvbox-light-soft))
 
-(use-package gruvbox-theme
+(use-package dracula-theme
   :ensure t
-  :config
-  (load-theme 'gruvbox-light-soft))
+  :init
+  (load-theme 'dracula t))
 
 (use-package ace-window
   :ensure t
@@ -360,10 +375,16 @@
     (insert (concat "ls"))
     (eshell-send-input)))
 
-(defun vreload()
-  "Reload."
-  (interactive)
-  (load-file user-init-file))
+(use-package term
+  :ensure t
+  :bind (("C-c t" . term)
+         :map term-mode-map
+         ("M-p" . term-send-up)
+         ("M-n" . term-send-down)
+         :map term-raw-map
+         ("M-o" . other-window)
+         ("M-p" . term-send-up)
+         ("M-n" . term-send-down)))
 
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)
@@ -372,5 +393,7 @@
 (global-set-key (kbd "<f6>")  'counsel-rg)
 (global-set-key (kbd "<f7>")  'avy-goto-char-2)
 (global-set-key (kbd "<f8>")  'vsidebar)
+(global-set-key (kbd "<f9>")  'darkroom-mode)
+
 
 ;;; init.el ends here
