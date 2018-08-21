@@ -117,11 +117,12 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Colorscheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256
-let g:solarized_termcolors=256
+if !has("gui_running")
+    set t_Co=256
+    set term=screen-256color
+endif
 "set background=dark
 set background=light
-set termguicolors
 "colorscheme material-monokai
 colorscheme gruvbox
 
