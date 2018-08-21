@@ -69,11 +69,19 @@
    (quote
     (gruvbox-theme ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy smart-mode-line dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(set-default-font "Pragmata Pro Mono 16"))
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+(when (eq system-type 'darwin)
+  ;; default Latin font (e.g. Consolas)
+  (set-face-attribute 'default nil :family "Pragmata Pro Mono")
+  ;; default font size (point * 10)
+  ;; so that the beginning of the buffer may not be visible correctly. 
+  (set-face-attribute 'default nil :height 165)
+  )
 
 ;; Evil Mode
 (use-package evil
