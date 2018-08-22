@@ -36,8 +36,13 @@
 ;;;; package.el
 (require 'package)
 (setq package-user-dir "~/.emacs.d/elpa/")
-(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+
+;;(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+;;                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+
+(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/")))
+
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -76,7 +81,7 @@
     ("233bb646e100bda00c0af26afe7ab563ef118b9d685f1ac3ca5387856674285d" "7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" default)))
  '(package-selected-packages
    (quote
-    (rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig gruvbox-theme ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
+    (window-numbering doom-modeline rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -121,12 +126,7 @@
       "w/" 'split-window-right
       "w-" 'split-window-below
       ":"  'counsel-M-x
-      "wm" 'delete-other-windows))
-
-  (use-package powerline-evil
-    :ensure t
-    :config
-    (powerline-evil-vim-color-theme)))
+      "wm" 'delete-other-windows)))
 
 (use-package ivy
   :ensure t
@@ -235,6 +235,12 @@
   :config
   (global-undo-tree-mode 1))
 
+(use-package window-numbering
+  :ensure t
+  :init
+  (progn
+    (window-numbering-mode t)))
+
 (use-package clang-format
   :ensure t
   :config
@@ -306,11 +312,6 @@
 
   (use-package yasnippet-snippets
    :ensure t))
-
-;;(use-package gruvbox-theme
-;;  :ensure t
-;;  :config
-;;  (load-theme 'gruvbox-light-soft))
 
 (use-package dracula-theme
   :ensure t
@@ -385,6 +386,11 @@
          ("M-o" . other-window)
          ("M-p" . term-send-up)
          ("M-n" . term-send-down)))
+
+(use-package doom-modeline
+      :ensure t
+      :defer t
+      :hook (after-init . doom-modeline-init))
 
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)

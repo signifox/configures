@@ -52,8 +52,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-"set guifont=Hack:h14
-set guifont=Pragmata\ Pro\ Mono:h16
+set guifont=Hack:h14
 
 syntax on
 filetype plugin indent on
@@ -108,11 +107,10 @@ Plug 'skielbasa/vim-material-monokai'
 Plug 'justmao945/vim-clang'
 Plug 'easymotion/vim-easymotion'
 Plug 'bling/vim-bufferline'
-Plug 'morhetz/gruvbox'
+Plug 'dracula/vim'
 
 
 call plug#end()
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Colorscheme
@@ -124,7 +122,7 @@ endif
 "set background=dark
 set background=light
 "colorscheme material-monokai
-colorscheme gruvbox
+colorscheme dracula
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
