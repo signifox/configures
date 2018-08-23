@@ -2,6 +2,8 @@
 ;;; Commentary:
 
 ;;; Code:
+(setq gc-cons-threshold 100000000)
+(add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 800000)))
 
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -78,7 +80,7 @@
  '(custom-enabled-themes (quote (dracula)))
  '(custom-safe-themes
    (quote
-    ("233bb646e100bda00c0af26afe7ab563ef118b9d685f1ac3ca5387856674285d" "7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" default)))
+    ("aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" "233bb646e100bda00c0af26afe7ab563ef118b9d685f1ac3ca5387856674285d" "7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" default)))
  '(package-selected-packages
    (quote
     (window-numbering doom-modeline rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
@@ -197,7 +199,7 @@
   (setq hydra-verbose nil))
 
 (use-package recentf
-  :ensure nil
+  :ensure t
   :bind (("C-x f" . recentf-open-files))
   :config
   (setq recentf-auto-cleanup 'never)
@@ -392,6 +394,24 @@
       :defer t
       :hook (after-init . doom-modeline-init))
 
+;;; Rust Configure
+(use-package rust-mode
+  :ensure t
+  )
+
+(use-package cargo
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook 'cargo-minor-mode)
+  )
+
+(use-package flycheck-rust
+  :ensure t
+  :config
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+  )
+
+
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)
 (global-set-key (kbd "<f4>")  'counsel-find-file)
@@ -401,5 +421,5 @@
 (global-set-key (kbd "<f8>")  'vsidebar)
 (global-set-key (kbd "<f9>")  'darkroom-mode)
 
-
 ;;; init.el ends here
+
