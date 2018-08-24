@@ -83,7 +83,7 @@
     ("aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" "233bb646e100bda00c0af26afe7ab563ef118b9d685f1ac3ca5387856674285d" "7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" default)))
  '(package-selected-packages
    (quote
-    (window-numbering doom-modeline rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx gitignore-mode magit counsel-gtags counsel swiper ivy powerline-evil evil-leader evil use-package))))
+    (flycheck-rust cargo rust-mode window-numbering doom-modeline rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ace-window ibuffer-sidebar imenu-anywhere hl-todo yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex flx magit counsel-gtags counsel swiper ivy evil-leader evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -315,10 +315,10 @@
   (use-package yasnippet-snippets
    :ensure t))
 
-(use-package dracula-theme
-  :ensure t
-  :init
-  (load-theme 'dracula t))
+;;(use-package dracula-theme
+;;  :ensure t
+;;  :init
+;;  (load-theme 'dracula t))
 
 (use-package ace-window
   :ensure t
@@ -389,6 +389,17 @@
          ("M-p" . term-send-up)
          ("M-n" . term-send-down)))
 
+(use-package all-the-icons :ensure t)
+
+(use-package doom-themes
+  :ensure t
+  :init
+  (load-theme 'doom-one t)
+  :config
+  (progn
+    (doom-themes-neotree-config)
+    (doom-themes-org-config)))
+
 (use-package doom-modeline
       :ensure t
       :defer t
@@ -397,19 +408,17 @@
 ;;; Rust Configure
 (use-package rust-mode
   :ensure t
-  )
+  :init
 
-(use-package cargo
-  :ensure t
-  :config
-  (add-hook 'rust-mode-hook 'cargo-minor-mode)
-  )
-
-(use-package flycheck-rust
-  :ensure t
-  :config
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
-  )
+  (use-package cargo
+    :ensure t
+    :config
+    (add-hook 'rust-mode-hook 'cargo-minor-mode))
+  
+  (use-package flycheck-rust
+    :ensure t
+    :config
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 
 ;;;; global key bindings
