@@ -1,36 +1,56 @@
 ;;; package --- Summary:
 ;;; Commentary:
 
-(use-package auto-virtualenv
-   :ensure t
-   :config
-   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
-
-(use-package jedi
+(use-package python
   :ensure t
   :init
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (add-hook 'python-mode-hook 'jedi:ac-setup))
+  (add-hook 'python-mode-hook 'python-doc)
+  (setq python-indent-guess-indent-offset-verbose nil
+        python-shell-interpreter "python"))
 
-(use-package elpy
+(use-package anaconda-mode
   :ensure t
-  :init
-  (setq elpy-rpc-backend "jedi")
-  (elpy-enable)
+  :after python
+  :bind (("M-s" . anaconda-mode-find-definitions))
   :config
-  (add-hook 'python-mode-hook 'elpy-mode)
-  (with-eval-after-load 'elpy
-    (add-hook 'elpy-mode-hook 'elpy-use-ipython))
+  ;; trim eldoc to fit the frame
+  (setq anaconda-mode-eldoc-as-single-line t)
+  (add-hook 'python-mode-hook #'anaconda-mode)
+  (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode))
 
-  (setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i")
-  
-  :bind (("M-*" . pop-tag-mark)))
-
-(use-package indent-tools
+(use-package company-anaconda
   :ensure t
-  :init
-  (add-hook 'python-mode-hook
-            (lambda () (define-key python-mode-map (kbd "C-c i") 'indent-tools-hydra/body))))
+  :after
+  anaconda-mode
+  company
+  :config
+  (add-to-list 'company-backends 'company-anaconda))
+
+(use-package pip-requirements
+  :ensure t
+  :mode ("/requirements.txt$" . pip-requirements-mode))
+
+(use-package pyvenv
+  :ensure t
+  :config
+  (evil-leader/set-key-for-mode 'python-mode
+    "pw" 'pyvenv-workon
+    "pd" 'pyvenv-deactivate))
+
+(defun python-format-buffer ()
+  "Format python buffer using yapify and isort."
+  (interactive)
+  (yapfify-buffer (point-min) (point-max))
+  (py-isort-buffer))
+
+; yapfify
+(use-package yapfify :defer t)
+
+; py-isort
+(use-package py-isort :defer t)
+
+(evil-leader/set-key-for-mode 'python-mode
+  "=" 'python-format-buffer)
+
 
 (provide 'lang-py)
