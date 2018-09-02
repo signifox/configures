@@ -2,7 +2,8 @@
 ;;; Rust Configure
 (use-package rust-mode
   :ensure t
-  :init
+  :config
+  (add-hook 'rust-mode-hook #'rustfmt-enable-on-save)
 
   (use-package cargo
     :ensure t
