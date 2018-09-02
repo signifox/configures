@@ -1,56 +1,65 @@
 ;;; package --- Summary:
 ;;; Commentary:
 
+;;pip install rope  # refactoring library
+;;pip install jedi  # lightweight autocompletion
+;;pip install flake8
+;;pip install importmagic
+;;pip install yapf
+
+
+(setq python-shell-completion-native-enable nil)
+
+(use-package pyenv-mode
+  :ensure t
+  :config
+    (defun projectile-pyenv-mode-set ()
+      (let ((project (projectile-project-name)))
+        (if (member project (pyenv-mode-versions))
+            (pyenv-mode-set project)
+          (pyenv-mode-unset))))
+
+    (add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
+    (add-hook 'python-mode-hook 'pyenv-mode))
+
+(use-package pyenv-mode-auto :ensure t)
+
 (use-package python
+  :mode ("\\.py\\'" . python-mode)
+        ("\\.wsgi$" . python-mode)
+  :interpreter ("python" . python-mode)
+
+  :init
+  (setq-default indent-tabs-mode nil)
+
+  :config
+  (setq python-indent-offset 4)
+  (add-hook 'python-mode-hook 'smartparens-mode)
+  (add-hook 'python-mode-hook 'color-identifiers-mode))
+
+(use-package jedi
   :ensure t
   :init
-  (add-hook 'python-mode-hook 'python-doc)
-  (setq python-indent-guess-indent-offset-verbose nil
-        python-shell-interpreter "python"))
-
-(use-package anaconda-mode
-  :ensure t
-  :after python
-  :bind (("M-s" . anaconda-mode-find-definitions))
+  (add-to-list 'company-backends 'company-jedi)
   :config
-  ;; trim eldoc to fit the frame
-  (setq anaconda-mode-eldoc-as-single-line t)
-  (add-hook 'python-mode-hook #'anaconda-mode)
-  (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode))
+  (use-package company-jedi
+    :ensure t
+    :init
+    (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
+    (setq company-jedi-python-bin "python")))
 
-(use-package company-anaconda
+(use-package elpy
   :ensure t
-  :after
-  anaconda-mode
-  company
+  :defer 2
   :config
-  (add-to-list 'company-backends 'company-anaconda))
-
-(use-package pip-requirements
-  :ensure t
-  :mode ("/requirements.txt$" . pip-requirements-mode))
-
-(use-package pyvenv
-  :ensure t
-  :config
-  (evil-leader/set-key-for-mode 'python-mode
-    "pw" 'pyvenv-workon
-    "pd" 'pyvenv-deactivate))
-
-(defun python-format-buffer ()
-  "Format python buffer using yapify and isort."
-  (interactive)
-  (yapfify-buffer (point-min) (point-max))
-  (py-isort-buffer))
-
-; yapfify
-(use-package yapfify :defer t)
-
-; py-isort
-(use-package py-isort :defer t)
-
-(evil-leader/set-key-for-mode 'python-mode
-  "=" 'python-format-buffer)
+  (progn
+    (when (require 'flycheck nil t)
+      (remove-hook 'elpy-modules 'elpy-module-flymake)
+      (remove-hook 'elpy-modules 'elpy-module-yasnippet)
+      (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
+      (add-hook 'elpy-mode-hook 'flycheck-mode))
+    (elpy-enable)
+    (setq elpy-rpc-backend "jedi")))
 
 
 (provide 'lang-py)
