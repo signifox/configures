@@ -115,7 +115,7 @@ Plug 'jceb/vim-orgmode'
 Plug 'rust-lang/rust.vim'
 Plug 'dracula/vim'
 Plug 'jremmen/vim-ripgrep'
-
+Plug 'sjl/gundo.vim'
 
 call plug#end()
 
@@ -126,9 +126,7 @@ if !has("gui_running")
     set t_Co=256
     set term=screen-256color
 endif
-"set background=dark
 set background=light
-"colorscheme material-monokai
 colorscheme dracula
 
 
@@ -218,7 +216,6 @@ let g:header_field_author_email = 'huxiao@bytedance.com'
 let g:header_field_timestamp_format = '%Y/%m/%d'
 let g:header_auto_add_header = 0
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -228,7 +225,6 @@ let g:clang_format#style_options = {
     \ "BasedOnStyle" : "Google"    ,
     \ "IndentWidth"  : 2           ,
     \ "TabWidth"     : 2           }
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-clang
@@ -260,18 +256,23 @@ if executable('pyls')
         \ })
 endif
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Rust
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rustfmt_autosave = 1
 
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"gundo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gundo_width = 60
+let g:gundo_preview_height = 40
+let g:gundo_right = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <silent> <F7>  :TagbarToggle<cr> 
-nmap <silent> <F8>  :NERDTreeToggle<cr> 
+nmap <silent> <F5>  :GundoToggle<cr>
+nmap <silent> <F7>  :TagbarToggle<cr>
+nmap <silent> <F8>  :NERDTreeToggle<cr>
 nmap <silent> <F11> :bp!<cr>
 nmap <silent> <F12> :bn!<cr>
 
