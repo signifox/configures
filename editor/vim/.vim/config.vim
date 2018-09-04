@@ -114,6 +114,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'jceb/vim-orgmode'
 Plug 'rust-lang/rust.vim'
 Plug 'dracula/vim'
+Plug 'jremmen/vim-ripgrep'
 
 
 call plug#end()
@@ -175,6 +176,12 @@ if has("win32") || has("win64")
 elseif has("unix")
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
+endif
+
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
