@@ -107,6 +107,12 @@ Plug 'skielbasa/vim-material-monokai'
 Plug 'justmao945/vim-clang'
 Plug 'easymotion/vim-easymotion'
 Plug 'bling/vim-bufferline'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'jceb/vim-orgmode'
+Plug 'rust-lang/rust.vim'
 Plug 'dracula/vim'
 
 
@@ -234,6 +240,24 @@ map fj <Plug>(easymotion-j)
 map fk <Plug>(easymotion-k)
 map fh <Plug>(easymotion-linebackward)
 let g:EasyMotion_smartcase = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Lsp
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Rust
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rustfmt_autosave = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
