@@ -117,7 +117,6 @@ Plug 'dracula/vim'
 Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'mileszs/ack.vim'
 Plug 'jremmen/vim-ripgrep'
 
 call plug#end()
@@ -295,20 +294,6 @@ let g:multi_cursor_next_key='<C-m>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Ack
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Leader>c :Ack!<Space>
-if executable('rg')
-  let g:ackprg = 'rg --vimgrep'
-endif
-let g:ackhighlight = 1
-let g:ack_qhandler = "botright copen 15"
-let g:ack_autoclose = 1
-let g:ack_use_cword_for_empty_search = 1
-let g:ack_use_dispatch = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
