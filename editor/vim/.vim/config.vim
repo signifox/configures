@@ -114,8 +114,11 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'jceb/vim-orgmode'
 Plug 'rust-lang/rust.vim'
 Plug 'dracula/vim'
-Plug 'jremmen/vim-ripgrep'
 Plug 'sjl/gundo.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'mileszs/ack.vim'
+Plug 'jremmen/vim-ripgrep'
 
 call plug#end()
 
@@ -136,7 +139,6 @@ colorscheme dracula
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 let g:airline_powerline_fonts = 0
-"let g:airline_theme='molokai'
 let g:airline_theme='materialmonokai'
 let g:materialmonokai_subtle_airline=1
 
@@ -182,6 +184,7 @@ if executable('rg')
   let g:ctrlp_use_caching = 0
 endif
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-autopep8
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -216,6 +219,7 @@ let g:header_field_author_email = 'huxiao@bytedance.com'
 let g:header_field_timestamp_format = '%Y/%m/%d'
 let g:header_auto_add_header = 0
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -226,11 +230,16 @@ let g:clang_format#style_options = {
     \ "IndentWidth"  : 2           ,
     \ "TabWidth"     : 2           }
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-clang
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:clang_c_options = '-std=gnu11'
 let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-easymotion
@@ -244,6 +253,7 @@ map fk <Plug>(easymotion-k)
 map fh <Plug>(easymotion-linebackward)
 let g:EasyMotion_smartcase = 1
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Lsp
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -256,10 +266,12 @@ if executable('pyls')
         \ })
 endif
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Rust
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rustfmt_autosave = 1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "gundo
@@ -267,6 +279,38 @@ let g:rustfmt_autosave = 1
 let g:gundo_width = 60
 let g:gundo_preview_height = 40
 let g:gundo_right = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"multi-cursors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 多光标操作
+let g:multi_cursor_use_default_mapping=0
+" Default mapping
+" ctrl+m 选中一个
+" ctrl+p 放弃一个, 回到上一个
+" ctrl+x 跳过当前选中, 选中下一个
+" esc    退出
+let g:multi_cursor_next_key='<C-m>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Ack
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>c :Ack!<Space>
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
+endif
+let g:ackhighlight = 1
+let g:ack_qhandler = "botright copen 15"
+let g:ack_autoclose = 1
+let g:ack_use_cword_for_empty_search = 1
+let g:ack_use_dispatch = 1
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
