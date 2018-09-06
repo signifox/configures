@@ -118,6 +118,7 @@ Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'jremmen/vim-ripgrep'
+Plug 'tpope/vim-speeddating'
 
 call plug#end()
 
