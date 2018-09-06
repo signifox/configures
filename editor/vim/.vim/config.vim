@@ -118,6 +118,8 @@ Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'jremmen/vim-ripgrep'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
 
 call plug#end()
 
@@ -238,6 +240,16 @@ let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-gutentags
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_auto_add_gtags_cscope = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
