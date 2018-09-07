@@ -103,7 +103,6 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'alpertuna/vim-header'
-Plug 'skielbasa/vim-material-monokai'
 Plug 'justmao945/vim-clang'
 Plug 'easymotion/vim-easymotion'
 Plug 'bling/vim-bufferline'
@@ -119,6 +118,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-speeddating'
+Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 
@@ -136,11 +136,13 @@ colorscheme dracula
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
-let g:airline_powerline_fonts = 0
-let g:airline_theme='materialmonokai'
-let g:materialmonokai_subtle_airline=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='dracula'
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
