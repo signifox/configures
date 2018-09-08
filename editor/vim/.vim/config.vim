@@ -111,7 +111,6 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'jceb/vim-orgmode'
-Plug 'rust-lang/rust.vim'
 Plug 'dracula/vim'
 Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -267,13 +266,6 @@ if executable('pyls')
         \ 'whitelist': ['python'],
         \ })
 endif
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Rust
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:rustfmt_autosave = 1
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "gundo

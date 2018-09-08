@@ -10,20 +10,6 @@
 
 (setq python-shell-completion-native-enable nil)
 
-(use-package pyenv-mode
-  :ensure t
-  :config
-    (defun projectile-pyenv-mode-set ()
-      (let ((project (projectile-project-name)))
-        (if (member project (pyenv-mode-versions))
-            (pyenv-mode-set project)
-          (pyenv-mode-unset))))
-
-    (add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
-    (add-hook 'python-mode-hook 'pyenv-mode))
-
-(use-package pyenv-mode-auto :ensure t)
-
 (use-package python
   :mode ("\\.py\\'" . python-mode)
         ("\\.wsgi$" . python-mode)

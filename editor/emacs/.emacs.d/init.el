@@ -66,7 +66,7 @@
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(package-selected-packages
    (quote
-    (pyvenv pip-requirements company-anaconda anaconda-mode smartparens powerline flycheck-rust cargo rust-mode window-numbering rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil-leader evil use-package)))
+    (elpy jedi company-jedi smart-mode-line smartparens powerline window-numbering rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil-leader evil use-package)))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -124,7 +124,6 @@
 
 (require 'lang-cc)
 (require 'lang-py)
-(require 'lang-rust)
 
 ;;; init.el ends here
 
