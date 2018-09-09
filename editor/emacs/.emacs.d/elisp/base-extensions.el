@@ -126,6 +126,8 @@
 
 (use-package smartparens :ensure t)
 
+(use-package markdown-mode :ensure t)
+
 (use-package undo-tree
   :ensure t
   :diminish undo-tree-mode
@@ -137,5 +139,22 @@
   :init
   (progn
     (window-numbering-mode t)))
+
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-completion-system 'ivy)
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (projectile-mode +1))
+
+(use-package counsel-projectile
+  :ensure t
+  :bind
+  (("C-c p p" . counsel-projectile-switch-project)
+   ("C-c p b" . counsel-projectile-switch-to-buffer)
+   ("C-c p f" . counsel-projectile-find-file))
+  :config
+  (counsel-projectile-on))
 
 (provide 'base-extensions)

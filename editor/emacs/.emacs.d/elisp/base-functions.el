@@ -78,4 +78,60 @@
     (insert (concat "ls"))
     (eshell-send-input)))
 
+;;;Org-mode
+(use-package org
+  :ensure t
+  :config
+  (setq org-agenda-files (list "~/org/todo.org"))
+  (setq org-todo-keywords
+        '((sequence "TODO" "NEXT" "|" "DONE")
+          (sequence "WAITING" "HOLD" "|" "CANCELLED")))
+  (setq org-todo-keyword-faces
+        '(("NEXT" :foreground "blue" :weight bold)
+          ("WAITING" :foreground "orange" :weight bold)
+          ("HOLD" :foreground "magenta" :weight bold)
+          ("CANCELLED" :foreground "forest green" :weight bold)))
+  (setq org-M-RET-may-split-line nil)
+  (setq org-src-fontify-natively t)
+  (setq org-log-done 'time))
+
+(use-package htmlize
+  :ensure t
+  :commands (htmlize-buffer
+             htmlize-file
+             htmlize-many-files
+             htmlize-many-files-dired
+             htmlize-region))
+
+(use-package google-translate
+  :ensure t
+  :defines google-translate-translation-directions-alist
+  :bind
+  ("C-c t" . google-translate-smooth-translate)
+  :init
+  (setq google-translate-output-destination 'popup)
+  (setq google-translate-translation-directions-alist
+        '(("en" . "zh-CN") ("zh-CN" . "en"))))
+
+(use-package pdf-tools
+ :ensure t
+ :config
+ ;; initialise
+ (pdf-tools-install)
+ ;; open pdfs scaled to fit page
+ (setq-default pdf-view-display-size 'fit-page)
+ ;; automatically annotate highlights
+ (setq pdf-annot-activate-created-annotations t)
+ ;; use normal isearch
+ (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+ ;; turn off cua so copy works
+ (add-hook 'pdf-view-mode-hook (lambda () (cua-mode 0)))
+ ;; more fine-grained zooming
+ (setq pdf-view-resize-factor 1.1)
+ ;; keyboard shortcuts
+ (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
+ (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
+ (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete))
+
+
 (provide 'base-functions)

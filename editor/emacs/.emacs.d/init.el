@@ -56,24 +56,24 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#1B2229" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#DFDFDF"])
- '(custom-enabled-themes (quote (dracula)))
+ '(custom-enabled-themes (quote (monokai)))
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" "3a3de615f80a0e8706208f0a71bbcc7cc3816988f971b6d237223b6731f91605" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" default)))
+    ("bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" "3a3de615f80a0e8706208f0a71bbcc7cc3816988f971b6d237223b6731f91605" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" default)))
  '(fci-rule-color "#5B6268")
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(package-selected-packages
    (quote
-    (elpy jedi company-jedi smart-mode-line smartparens powerline window-numbering rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil-leader evil use-package)))
+    (pdf-tools counsel-projectile google-translate htmlize projectile dashboard markdown-mode elpy jedi company-jedi smart-mode-line smartparens powerline window-numbering rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil-leader evil use-package)))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:background nil)))))
 
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil :family "Hack")
@@ -104,7 +104,15 @@
       "w/" 'split-window-right
       "w-" 'split-window-below
       ":"  'counsel-M-x
-      "wm" 'delete-other-windows)))
+      "wm" 'delete-other-windows))
+
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode))
+
+  (use-package evil-indent-textobject
+    :ensure t))
 
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)
