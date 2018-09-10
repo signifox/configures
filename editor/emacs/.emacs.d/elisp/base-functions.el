@@ -91,6 +91,17 @@
           ("WAITING" :foreground "orange" :weight bold)
           ("HOLD" :foreground "magenta" :weight bold)
           ("CANCELLED" :foreground "forest green" :weight bold)))
+  ;; 优先级范围和默认任务的优先级
+  (setq org-highest-priority ?A)
+  (setq org-lowest-priority  ?E)
+  (setq org-default-priority ?E)
+  ;; 优先级醒目外观
+  (setq org-priority-faces
+        '((?A . (:background "red" :foreground "white" :weight bold))
+          (?B . (:background "DarkOrange" :foreground "white" :weight bold))
+          (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
+          (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
+          (?E . (:background "SkyBlue" :foreground "black" :weight bold))))
   (setq org-M-RET-may-split-line nil)
   (setq org-src-fontify-natively t)
   (setq org-log-done 'time))

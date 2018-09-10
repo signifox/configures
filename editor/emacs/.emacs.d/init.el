@@ -25,6 +25,7 @@
 (setq show-paren-style 'parenthesis)
 (setq show-paren-style 'expression)
 (setq show-paren-style 'mixed)
+(setq tramp-verbose 10)
 
 (setq max-mini-window-height 0.8)
 (setq-default indent-tabs-mode nil)
@@ -77,7 +78,7 @@
 
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil :family "Hack")
-  (set-face-attribute 'default nil :height 125))
+  (set-face-attribute 'default nil :height 145))
 
 (use-package smex :ensure t)
 (use-package editorconfig :ensure t)
@@ -111,8 +112,7 @@
     :config
     (global-evil-surround-mode))
 
-  (use-package evil-indent-textobject
-    :ensure t))
+  (use-package evil-indent-textobject :ensure t))
 
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)
@@ -125,6 +125,7 @@
 
 ;;Custom Plugins
 (add-to-list 'load-path (concat user-emacs-directory "elisp"))
+
 
 (require 'base-theme)
 (require 'base-extensions)
