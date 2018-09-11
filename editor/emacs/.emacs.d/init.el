@@ -74,11 +74,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
-
-(when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :family "Hack")
-  (set-face-attribute 'default nil :height 145))
+ '(default ((t (:inherit nil :stipple nil :background "#272822" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 180 :width normal :foundry "nil" :family "Hack")))))
 
 (use-package smex :ensure t)
 (use-package editorconfig :ensure t)
