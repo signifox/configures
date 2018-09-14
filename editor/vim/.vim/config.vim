@@ -104,20 +104,13 @@ Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'alpertuna/vim-header'
 Plug 'justmao945/vim-clang'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'easymotion/vim-easymotion'
 Plug 'bling/vim-bufferline'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'jceb/vim-orgmode'
 Plug 'dracula/vim'
 Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'jremmen/vim-ripgrep'
-Plug 'tpope/vim-speeddating'
-Plug 'flazz/vim-colorschemes'
+Plug 'aceofall/gtags.vim'
 
 call plug#end()
 
@@ -128,7 +121,7 @@ if !has("gui_running")
     set t_Co=256
     set term=screen-256color
 endif
-set background=light
+set background=dark
 colorscheme dracula
 
 
@@ -177,12 +170,6 @@ if has("win32") || has("win64")
 elseif has("unix")
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
-endif
-
-if executable('rg')
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
 endif
 
 
@@ -241,6 +228,15 @@ let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 
+"cscope
+set cscopetag                  " 使用 cscope 作为 tags 命令
+set cscopeprg='gtags-cscope'   " 使用 gtags-cscope 代替 cscope
+
+"gtags
+let GtagsCscope_Auto_Load = 1
+let CtagsCscope_Auto_Map = 1
+let GtagsCscope_Quiet = 1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-easymotion
@@ -254,18 +250,6 @@ map fk <Plug>(easymotion-k)
 map fh <Plug>(easymotion-linebackward)
 let g:EasyMotion_smartcase = 1
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Lsp
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "gundo
