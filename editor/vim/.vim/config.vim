@@ -89,15 +89,17 @@ autocmd BufNewFile *.h,*.cpp,*.c,*.cc,*.java,*.pl,*.php
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'w0rp/ale'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
+Plug 'bling/vim-bufferline'
+Plug 'sjl/gundo.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
 Plug 'tell-k/vim-autopep8'
 Plug 'rhysd/vim-clang-format'
-Plug 'kien/ctrlp.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
@@ -106,11 +108,9 @@ Plug 'alpertuna/vim-header'
 Plug 'justmao945/vim-clang'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'easymotion/vim-easymotion'
-Plug 'bling/vim-bufferline'
 Plug 'dracula/vim'
-Plug 'sjl/gundo.vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'aceofall/gtags.vim'
+Plug 'terryma/vim-multiple-cursors'
 
 call plug#end()
 
@@ -135,16 +135,6 @@ let g:airline_theme='dracula'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"MiniBufExplorer
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-let g:miniBufExplMoreThanOne=0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -283,4 +273,23 @@ nmap <silent> <F7>  :TagbarToggle<cr>
 nmap <silent> <F8>  :NERDTreeToggle<cr>
 nmap <silent> <F11> :bp!<cr>
 nmap <silent> <F12> :bn!<cr>
+
+
+"" ctrl+]将跳到光标所在变量或函数的定义处, ctrl+t返回
+"" cs find s ---- 查找C语言符号，即查找函数名、宏、枚举值等出现的地方
+"" cs find g ---- 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能
+"" cs find c ---- 查找调用本函数的函数
+"" cs find t ---- 查找指定的字符串
+"" cs find e ---- 查找egrep模式，相当于egrep功能
+"" cs find d ---- 查找本函数调用的函数
+"" cs find f ---- 查找并打开文件，类似vim的find功能
+"" cs find i ---- 查找包含本文件的文件
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
 
