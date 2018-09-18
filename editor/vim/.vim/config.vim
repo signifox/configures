@@ -111,6 +111,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'dracula/vim'
 Plug 'aceofall/gtags.vim'
 Plug 'terryma/vim-multiple-cursors'
+Plug 't9md/vim-choosewin'
+Plug 'simeji/winresizer'
 
 call plug#end()
 
@@ -202,6 +204,8 @@ let g:header_auto_add_header = 0
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:clang_format#command="/usr/bin/clang-format-3.5"
+let g:clang_format#detect_style_file = 1
+let g:clang_format#enable_fallback_style=1
 let g:clang_format#auto_format = 0
 let g:clang_format#style_options = {
     \ "BasedOnStyle" : "Google"    ,
@@ -266,14 +270,24 @@ let g:multi_cursor_quit_key='<Esc>'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-choosewin
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" invoke with '-'
+nmap  -  <Plug>(choosewin)
+" if you want to use overlay feature
+let g:choosewin_overlay_enable = 1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <silent> <F5>  :GundoToggle<cr>
+nmap <silent> <F5>  :ClangFormat<cr>
+nmap <silent> <F6>  :GundoToggle<cr>
 nmap <silent> <F7>  :TagbarToggle<cr>
 nmap <silent> <F8>  :NERDTreeToggle<cr>
 nmap <silent> <F11> :bp!<cr>
 nmap <silent> <F12> :bn!<cr>
-
 
 "" ctrl+]将跳到光标所在变量或函数的定义处, ctrl+t返回
 "" cs find s ---- 查找C语言符号，即查找函数名、宏、枚举值等出现的地方
