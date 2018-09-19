@@ -93,6 +93,7 @@ Plug 'w0rp/ale'
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'bling/vim-bufferline'
 Plug 'sjl/gundo.vim'
 Plug 'vim-airline/vim-airline'
@@ -100,12 +101,14 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tell-k/vim-autopep8'
 Plug 'rhysd/vim-clang-format'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'jremmen/vim-ripgrep'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'alpertuna/vim-header'
-Plug 'justmao945/vim-clang'
+"Plug 'justmao945/vim-clang'
 Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'easymotion/vim-easymotion'
@@ -113,7 +116,11 @@ Plug 'dracula/vim'
 Plug 'aceofall/gtags.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 't9md/vim-choosewin'
+Plug 'luochen1990/rainbow'
 Plug 'simeji/winresizer'
+Plug 'bronson/vim-trailing-whitespace'
+
+
 
 call plug#end()
 
@@ -126,6 +133,8 @@ if !has("gui_running")
 endif
 set background=dark
 colorscheme dracula
+
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -208,10 +217,10 @@ let g:clang_format#command="/usr/bin/clang-format-3.5"
 let g:clang_format#detect_style_file = 1
 let g:clang_format#enable_fallback_style=1
 let g:clang_format#auto_format = 0
-let g:clang_format#style_options = {
-    \ "BasedOnStyle" : "Google"    ,
-    \ "IndentWidth"  : 2           ,
-    \ "TabWidth"     : 2           }
+"let g:clang_format#style_options = {
+"    \ "BasedOnStyle" : "Google"    ,
+"    \ "IndentWidth"  : 2           ,
+"    \ "TabWidth"     : 2           }
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
