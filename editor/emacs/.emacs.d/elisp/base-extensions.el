@@ -140,13 +140,12 @@
   (progn
     (window-numbering-mode t)))
 
-(use-package switch-window
+(use-package ace-window                 ; Fast window switching
   :ensure t
-  :config
-  (setq switch-window-shortcut-style 'qwerty)
-  (setq switch-window-qwerty-shortcuts
-      '("a" "s" "d" "f" "j" "k" "l" ";" "w" "e" "i" "o"))
-  :bind ("C-x o" . switch-window))
+  :custom
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :bind (("C-x o" . ace-window)
+         ("M-o"   . ace-window)))
 
 (use-package projectile
   :ensure t
