@@ -140,6 +140,14 @@
   (progn
     (window-numbering-mode t)))
 
+(use-package switch-window
+  :ensure t
+  :config
+  (setq switch-window-shortcut-style 'qwerty)
+  (setq switch-window-qwerty-shortcuts
+      '("a" "s" "d" "f" "j" "k" "l" ";" "w" "e" "i" "o"))
+  :bind ("C-x o" . switch-window))
+
 (use-package projectile
   :ensure t
   :init
