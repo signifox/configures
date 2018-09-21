@@ -31,14 +31,4 @@
   (setq sml/no-confirm-load-theme t)
   (sml/setup))
 
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
-  (setq dashboard-items '((recents  . 5)
-                        (bookmarks . 5)
-                        (agenda . 5)
-                        (projects . 5))))
-
 (provide 'base-theme)
