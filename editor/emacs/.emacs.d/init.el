@@ -61,53 +61,17 @@
  '(custom-enabled-themes (quote (monokai)))
  '(custom-safe-themes
    (quote
-    ("dd43ce1171324a8e47f9e4ca9f49773c4b4960706171ab951130c668adc59f53" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" "3a3de615f80a0e8706208f0a71bbcc7cc3816988f971b6d237223b6731f91605" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" default)))
+    ("bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" default)))
  '(fci-rule-color "#5B6268")
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
- '(highlight-tail-colors
-   (quote
-    (("#3C3D37" . 0)
-     ("#679A01" . 20)
-     ("#4BBEAE" . 30)
-     ("#1DB4D0" . 50)
-     ("#9A8F21" . 60)
-     ("#A75B00" . 70)
-     ("#F309DF" . 85)
-     ("#3C3D37" . 100))))
- '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (counsel-projectile google-translate htmlize projectile markdown-mode elpy jedi company-jedi smart-mode-line smartparens powerline window-numbering rainbow-mode darkroom hydra dracula-theme company-irony-c-headers editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil-leader evil use-package)))
+    (ace-window counsel-projectile google-translate htmlize projectile markdown-mode elpy jedi company-jedi smart-mode-line smartparens window-numbering rainbow-mode darkroom dracula-theme company-irony-c-headers editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil-leader evil use-package)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#F92672")
-     (40 . "#CF4F1F")
-     (60 . "#C26C0F")
-     (80 . "#E6DB74")
-     (100 . "#AB8C00")
-     (120 . "#A18F00")
-     (140 . "#989200")
-     (160 . "#8E9500")
-     (180 . "#A6E22E")
-     (200 . "#729A1E")
-     (220 . "#609C3C")
-     (240 . "#4E9D5B")
-     (260 . "#3C9F79")
-     (280 . "#A1EFE4")
-     (300 . "#299BA6")
-     (320 . "#2896B5")
-     (340 . "#2790C3")
-     (360 . "#66D9EF"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (quote
-    (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0"))))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -117,12 +81,15 @@
 
 (use-package smex :ensure t)
 (use-package editorconfig :ensure t)
-(use-package rainbow-mode :ensure t)
 
 ;; Evil Mode
 (use-package evil
   :ensure t
   :config
+  (define-key evil-insert-state-map [remap newline] 'newline)
+  (define-key evil-insert-state-map [remap newline-and-indent] 'newline-and-indent)
+  (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+  (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
   (evil-mode 1)
 
   (use-package evil-leader
@@ -142,11 +109,6 @@
       ":"  'counsel-M-x
       "wm" 'delete-other-windows))
 
-  (use-package evil-surround
-    :ensure t
-    :config
-    (global-evil-surround-mode))
-
   (use-package evil-indent-textobject :ensure t))
 
 ;;;; global key bindings
@@ -158,16 +120,392 @@
 (global-set-key (kbd "<f8>")  'vsidebar)
 (global-set-key (kbd "<f9>")  'darkroom-mode)
 
-;;Custom Plugins
-(add-to-list 'load-path (concat user-emacs-directory "elisp"))
+(use-package avy :ensure t)
+(use-package smartparens :ensure t)
+(use-package markdown-mode :ensure t)
+(use-package rainbow-delimiters :ensure t)
+(use-package darkroom :ensure t)
+(use-package rainbow-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-mode))
 
+;;Theme
+(use-package dracula-theme       :ensure t :defer t)
+(use-package atom-one-dark-theme :ensure t :defer t)
+(use-package monokai-theme       :ensure t :defer t)
+(use-package solarized-theme     :ensure t :defer t)
 
-(require 'base-theme)
-(require 'base-extensions)
-(require 'base-functions)
+(use-package smart-mode-line
+  :ensure t
+  :config
+  (setq sml/theme 'respectful)
+  (setq sml/no-confirm-load-theme t)
+  (sml/setup))
 
-(require 'lang-cc)
-(require 'lang-py)
+;;Extensions
+(use-package ivy
+  :ensure t
+  :diminish (ivy-mode . "")
+  :bind
+  (:map ivy-mode-map
+        ("C-'" . ivy-avy))
+  :config
+  (ivy-mode 1)
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 10)
+  ;; does not count candidates
+  (setq ivy-count-format "")
+  ;; no regexp by default
+  (setq ivy-initial-inputs-alist nil)
+  ;; configure regexp engine.
+  (setq ivy-re-builders-alist
+  ;; allow input not in order
+  '((t . ivy--regex-ignore-order))))
+
+(use-package swiper
+  :ensure t
+  :bind
+  ("C-s" . swiper))
+
+(use-package counsel
+  :ensure t
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file)
+  ("C-x C-r" . counsel-recentf)
+  ("C-x j" . counsel-mark-ring)
+  ("C-c L" . counsel-load-library)
+  ("C-c P" . counsel-package)
+  ("C-c f" . counsel-find-library)
+  ("C-c g" . counsel-grep)
+  ("C-c h" . counsel-command-history)
+  ("C-c i" . counsel-git)
+  ("C-c j" . counsel-git-grep)
+  ("C-c l" . counsel-locate)
+  ("C-c r" . counsel-rg)
+  :hook ((after-init . ivy-mode)
+         (ivy-mode . counsel-mode))
+  :config
+  (setq enable-recursive-minibuffers t)
+  (setq ivy-use-selectable-prompt t)
+  (setq ivy-use-virtual-buffers t)`
+  (setq ivy-height 10)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-on-del-error-function nil)
+  (setq ivy-format-function 'ivy-format-function-arrow)
+
+  (use-package counsel-gtags
+  :init
+  (add-hook 'c-mode-hook 'counsel-gtags-mode)
+  (add-hook 'c++-mode-hook 'counsel-gtags-mode)
+  :bind
+  ("M-t" . counsel-gtags-find-definition)
+  ("M-r" . counsel-gtags-find-reference)
+  ("M-s" . counsel-gtags-find-symbol)
+  ("M-," . counsel-gtags-go-backward)))
+
+(use-package flycheck
+  :ensure t
+  :defer t
+  :init
+  (global-flycheck-mode)
+  :config
+  (progn
+    (add-hook 'c++-mode-hook #'flycheck-mode)
+    (add-hook 'c-mode-hook #'flycheck-mode)
+    (add-hook 'python-mode-hook #'flycheck-mode)))
+
+(use-package yasnippet
+  :ensure t
+  :init
+  (yas-global-mode)
+  :config
+  (yas-reload-all)
+
+  (use-package yasnippet-snippets
+   :ensure t))
+
+(use-package recentf
+  :ensure t
+  :bind (("C-x f" . recentf-open-files))
+  :config
+  (setq recentf-auto-cleanup 'never)
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 99)
+  (setq recentf-max-menu-items 99)
+  (setq recentf-show-file-shortcuts-flag nil)
+  (setq recentf-exclude
+        '("COMMIT" "autoloads" "archive-contents" "eld" "newsrc"
+          ".recentf" "emacs-font-size.conf"))
+  (add-hook 'find-file-hook #'recentf-save-list))
+
+(use-package magit
+  :ensure t
+  :config
+  (setq magit-completing-read-function 'ivy-completing-read)
+  :bind
+  ;; Magic
+  ("C-x g s" . magit-status)
+  ("C-x g x" . magit-checkout)
+  ("C-x g c" . magit-commit)
+  ("C-x g p" . magit-push)
+  ("C-x g u" . magit-pull)
+  ("C-x g e" . magit-ediff-resolve)
+  ("C-x g r" . magit-rebase-interactive))
+
+(use-package autorevert
+  :ensure t
+  :diminish auto-revert-mode
+  :config (global-auto-revert-mode))
+
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config
+  (global-undo-tree-mode 1))
+
+(use-package window-numbering
+  :ensure t
+  :init
+  (progn
+    (window-numbering-mode t)))
+
+(use-package ace-window                 ; Fast window switching
+  :ensure t
+  :custom
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :bind (("C-x o" . ace-window)
+         ("M-o"   . ace-window)))
+
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-completion-system 'ivy)
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (projectile-mode +1))
+
+(use-package counsel-projectile
+  :ensure t
+  :bind
+  (("C-c p p" . counsel-projectile-switch-project)
+   ("C-c p b" . counsel-projectile-switch-to-buffer)
+   ("C-c p f" . counsel-projectile-find-file))
+  :config
+  (counsel-projectile-on))
+
+;;Lang-cc
+(use-package company
+  :ensure t
+  :defer t
+  :init
+  (global-company-mode)
+  (add-hook 'c-mode-hook #'company-mode)
+  (add-hook 'c++-mode-hook #'company-mode)
+  :config
+  (progn
+    ;; Use Company for completion
+    (bind-key [remap completion-at-point] #'company-complete company-mode-map)
+
+    (setq company-tooltip-align-annotations t
+          ;; Easy navigation to candidates with M-<n>
+          company-show-numbers t)
+    (setq company-dabbrev-downcase nil))
+  :diminish company-mode)
+
+(use-package irony
+  :ensure t
+  :defer t
+  :config
+  (add-hook 'irony-mode-hook #'electric-pair-mode)
+  (add-hook 'c++-mode-hook #'irony-mode)
+  (add-hook 'c-mode-hook #'irony-mode)
+  (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
+  (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)
+
+  (use-package company-irony
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-irony))
+
+  (use-package company-irony-c-headers
+  :ensure t
+  :init
+  (add-to-list  'company-backends '(company-irony-c-headers))))
+
+(use-package clang-format
+  :ensure t
+  :config
+  (setq clang-format-style (concat "{BasedOnStyle: Google}"))
+  :commands clang-format clang-format-buffer clang-format-region)
+
+;;Lang-py
+;;pip install rope  # refactoring library
+;;pip install jedi  # lightweight autocompletion
+;;pip install flake8
+;;pip install importmagic
+;;pip install yapf
+(setq python-shell-completion-native-enable nil)
+
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+        ("\\.wsgi$" . python-mode)
+  :interpreter ("python" . python-mode)
+  :init
+  (setq-default indent-tabs-mode nil)
+  :config
+  (setq python-indent-offset 4)
+  (add-hook 'python-mode-hook 'smartparens-mode)
+  (add-hook 'python-mode-hook 'color-identifiers-mode))
+
+(use-package jedi
+  :ensure t
+  :init
+  (add-to-list 'company-backends 'company-jedi)
+  :config
+  (use-package company-jedi
+    :ensure t
+    :init
+    (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
+    (setq company-jedi-python-bin "python")))
+
+(use-package elpy
+  :ensure t
+  :defer 2
+  :config
+  (progn
+    (when (require 'flycheck nil t)
+      (remove-hook 'elpy-modules 'elpy-module-flymake)
+      (remove-hook 'elpy-modules 'elpy-module-yasnippet)
+      (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
+      (add-hook 'elpy-mode-hook 'flycheck-mode))
+    (elpy-enable)
+    (setq elpy-rpc-backend "jedi")))
+
+;;Function
+(defun vsplit-last-buffer ()
+  "Vsplit."
+  (interactive)
+  (split-window-vertically)
+  (other-window 1 nil)
+  (switch-to-next-buffer))
+
+(defun hsplit-last-buffer ()
+  "Hsplit."
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1 nil)
+  (switch-to-next-buffer))
+
+(global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
+(global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
+
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
+  :config
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
+  (setq dired-sidebar-subtree-line-prefix "-+-")
+  (setq dired-sidebar-use-term-integration t))
+
+(use-package ibuffer-sidebar
+  :ensure t
+  :commands (ibuffer-sidebar-toggle-sidebar)
+  :config
+  (setq ibuffer-sidebar-use-custom-font t)
+  (setq ibuffer-sidebar-face `(:family "Helvetica" :height 140)))
+
+(defun vsidebar()
+  "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
+  (interactive)
+  (dired-sidebar-toggle-sidebar)
+  (ibuffer-sidebar-toggle-sidebar))
+
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+
+(let ((path (shell-command-to-string ". ~/.zshrc; echo -n $PATH")))
+  (setenv "PATH" path)
+  (setq exec-path
+        (append
+         (split-string-and-unquote path ":")
+         exec-path)))
+
+(defun vshell ()
+  "Eshell Here."
+  (interactive)
+  (let* ((parent (if (buffer-file-name)
+                     (file-name-directory (buffer-file-name))
+                   default-directory))
+         (height (/ (window-total-height) 3))
+         (name   (car (last (split-string parent "/" t)))))
+    (split-window-vertically (- height))
+    (other-window 1)
+    (eshell "new")
+    (rename-buffer (concat "*eshell: " name "*"))
+    (insert (concat "ls"))
+    (eshell-send-input)))
+
+;;;Org-mode
+(use-package org
+  :ensure t
+  :config
+  (setq org-agenda-files (list "~/org/todo.org"))
+  (setq org-todo-keywords
+        '((sequence "TODO" "NEXT" "|" "DONE")
+          (sequence "WAITING" "HOLD" "|" "CANCELLED")))
+  (setq org-todo-keyword-faces
+        '(("NEXT" :foreground "blue" :weight bold)
+          ("WAITING" :foreground "orange" :weight bold)
+          ("HOLD" :foreground "magenta" :weight bold)
+          ("CANCELLED" :foreground "forest green" :weight bold)))
+  ;; 优先级范围和默认任务的优先级
+  (setq org-highest-priority ?A)
+  (setq org-lowest-priority  ?E)
+  (setq org-default-priority ?E)
+  ;; 优先级醒目外观
+  (setq org-priority-faces
+        '((?A . (:background "red" :foreground "white" :weight bold))
+          (?B . (:background "DarkOrange" :foreground "white" :weight bold))
+          (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
+          (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
+          (?E . (:background "SkyBlue" :foreground "black" :weight bold))))
+  (setq org-M-RET-may-split-line nil)
+  (setq org-src-fontify-natively t)
+  (setq org-log-done 'time))
+
+(use-package htmlize
+  :ensure t
+  :commands (htmlize-buffer
+             htmlize-file
+             htmlize-many-files
+             htmlize-many-files-dired
+             htmlize-region))
+
+(use-package google-translate
+  :ensure t
+  :defines google-translate-translation-directions-alist
+  :bind
+  ("C-c t" . google-translate-smooth-translate)
+  :init
+  (setq google-translate-output-destination 'popup)
+  (setq google-translate-translation-directions-alist
+        '(("en" . "zh-CN") ("zh-CN" . "en"))))
+
+(defun vreload()
+  "Reload."
+  (interactive)
+  (load-file user-init-file))
+
 
 ;;; init.el ends here
 
