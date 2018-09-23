@@ -67,10 +67,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (ace-window counsel-projectile google-translate htmlize projectile markdown-mode elpy jedi company-jedi smart-mode-line smartparens window-numbering rainbow-mode darkroom dracula-theme company-irony-c-headers editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil-leader evil use-package)))
- '(pos-tip-background-color "#FFFACE")
- '(pos-tip-foreground-color "#272822")
- '(vc-annotate-background nil)
+    (multiple-cursors ace-window counsel-projectile htmlize projectile markdown-mode elpy jedi company-jedi smart-mode-line smartparens window-numbering rainbow-mode darkroom dracula-theme company-irony-c-headers editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil-leader evil use-package)))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -90,6 +87,8 @@
   (define-key evil-insert-state-map [remap newline-and-indent] 'newline-and-indent)
   (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
   (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+  (define-key evil-ex-map "e " 'find-file)
+  (define-key evil-ex-map "b " 'switch-to-buffer)
   (evil-mode 1)
 
   (use-package evil-leader
@@ -104,12 +103,12 @@
       "bk" 'kill-buffer
       "gt" 'magit-status
       "dr" 'darkroom-mode
+      "ee" 'mc/edit-lines
       "w/" 'split-window-right
       "w-" 'split-window-below
       ":"  'counsel-M-x
-      "wm" 'delete-other-windows))
+      "wm" 'delete-other-windows)))
 
-  (use-package evil-indent-textobject :ensure t))
 
 ;;;; global key bindings
 (global-set-key (kbd "<f3>")  'imenu-anywhere)
@@ -120,6 +119,7 @@
 (global-set-key (kbd "<f8>")  'vsidebar)
 (global-set-key (kbd "<f9>")  'darkroom-mode)
 
+
 (use-package avy :ensure t)
 (use-package smartparens :ensure t)
 (use-package markdown-mode :ensure t)
@@ -129,6 +129,7 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-mode))
+
 
 ;;Theme
 (use-package dracula-theme       :ensure t :defer t)
@@ -142,6 +143,7 @@
   (setq sml/theme 'respectful)
   (setq sml/no-confirm-load-theme t)
   (sml/setup))
+
 
 ;;Extensions
 (use-package ivy
@@ -206,6 +208,7 @@
   ("M-r" . counsel-gtags-find-reference)
   ("M-s" . counsel-gtags-find-symbol)
   ("M-," . counsel-gtags-go-backward)))
+
 
 (use-package flycheck
   :ensure t
@@ -297,6 +300,17 @@
   :config
   (counsel-projectile-on))
 
+(use-package multiple-cursors
+  :ensure t
+  :init
+  (progn
+    (global-set-key (kbd "C-c .") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-c ,") 'mc/mark-previous-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+    (global-set-key (kbd "C-c C-l") 'c/mark-all-like-this)))
+
+
 ;;Lang-cc
 (use-package company
   :ensure t
@@ -307,9 +321,7 @@
   (add-hook 'c++-mode-hook #'company-mode)
   :config
   (progn
-    ;; Use Company for completion
     (bind-key [remap completion-at-point] #'company-complete company-mode-map)
-
     (setq company-tooltip-align-annotations t
           ;; Easy navigation to candidates with M-<n>
           company-show-numbers t)
@@ -341,6 +353,7 @@
   :config
   (setq clang-format-style (concat "{BasedOnStyle: Google}"))
   :commands clang-format clang-format-buffer clang-format-region)
+
 
 ;;Lang-py
 ;;pip install rope  # refactoring library
@@ -384,6 +397,7 @@
       (add-hook 'elpy-mode-hook 'flycheck-mode))
     (elpy-enable)
     (setq elpy-rpc-backend "jedi")))
+
 
 ;;Function
 (defun vsplit-last-buffer ()
@@ -455,6 +469,7 @@
     (insert (concat "ls"))
     (eshell-send-input)))
 
+
 ;;;Org-mode
 (use-package org
   :ensure t
@@ -490,16 +505,6 @@
              htmlize-many-files
              htmlize-many-files-dired
              htmlize-region))
-
-(use-package google-translate
-  :ensure t
-  :defines google-translate-translation-directions-alist
-  :bind
-  ("C-c t" . google-translate-smooth-translate)
-  :init
-  (setq google-translate-output-destination 'popup)
-  (setq google-translate-translation-directions-alist
-        '(("en" . "zh-CN") ("zh-CN" . "en"))))
 
 (defun vreload()
   "Reload."
