@@ -95,7 +95,7 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'bling/vim-bufferline'
-Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tell-k/vim-autopep8'
@@ -256,11 +256,12 @@ let g:EasyMotion_smartcase = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"gundo
+"undotree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gundo_width = 60
-let g:gundo_preview_height = 40
-let g:gundo_right = 1
+if has("persistent_undo")
+   set undodir=~/.undodir/
+   set undofile
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -288,12 +289,11 @@ nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <silent> <F5>  :ClangFormat<cr>
-nmap <silent> <F6>  :GundoToggle<cr>
+nmap <silent> <F6>  :UndotreeToggle<cr>
 nmap <silent> <F7>  :TagbarToggle<cr>
 nmap <silent> <F8>  :NERDTreeToggle<cr>
 nmap <silent> <F11> :bp!<cr>
