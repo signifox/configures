@@ -118,9 +118,9 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 't9md/vim-choosewin'
 Plug 'luochen1990/rainbow'
 Plug 'simeji/winresizer'
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 Plug 'bronson/vim-trailing-whitespace'
-
-
 
 call plug#end()
 
