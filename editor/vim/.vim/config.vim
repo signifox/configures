@@ -103,12 +103,10 @@ Plug 'rhysd/vim-clang-format'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'jremmen/vim-ripgrep'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'alpertuna/vim-header'
-"Plug 'justmao945/vim-clang'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'easymotion/vim-easymotion'
@@ -213,7 +211,8 @@ let g:header_auto_add_header = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:clang_format#command="/usr/bin/clang-format-3.5"
+"let g:clang_format#command="/opt/tiger/llvm/bin/clang-format"
+let g:clang_format#command="/usr/local/bin/clang-format"
 let g:clang_format#detect_style_file = 1
 let g:clang_format#enable_fallback_style=1
 let g:clang_format#auto_format = 0
@@ -288,6 +287,43 @@ nmap  -  <Plug>(choosewin)
 " if you want to use overlay feature
 let g:choosewin_overlay_enable = 1
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ultisnips
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"YCM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings=1
+set completeopt=menu,menuone
+
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+
+let g:ycm_semantic_triggers =  {
+            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+            \ 'cs,lua,javascript': ['re!\w{2}'],
+            \ }
+
+let g:ycm_filetype_whitelist = {
+            \ "c":1,
+            \ "cpp":1,
+            \ "objc":1,
+            \ "sh":1,
+            \ "zsh":1,
+            \ "zimbu":1,
+            \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
