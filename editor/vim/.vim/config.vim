@@ -98,9 +98,11 @@ Plug 'bling/vim-bufferline'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tell-k/vim-autopep8'
-Plug 'rhysd/vim-clang-format'
 Plug 'airblade/vim-gitgutter'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
+Plug 'google/vim-colorscheme-primary'
 Plug 'tpope/vim-fugitive'
 Plug 'jremmen/vim-ripgrep'
 Plug 'SirVer/ultisnips'
@@ -130,7 +132,8 @@ if !has("gui_running")
     set term=screen-256color
 endif
 set background=dark
-colorscheme dracula
+"colorscheme dracula
+colorscheme primary
 
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
@@ -174,17 +177,6 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"vim-autopep8
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:autopep8_aggressive=1
-let g:autopep8_max_line_length=256
-let g:autopep8_ignore="E123,E133,E501"
-let g:autopep8_disable_show_diff=1
-let g:flake8_show_in_gutter=1  " show
-"autocmd BufWritePost *.py Autopep8
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_sign_column_always = 1
@@ -211,8 +203,7 @@ let g:header_auto_add_header = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:clang_format#command="/opt/tiger/llvm/bin/clang-format"
-let g:clang_format#command="/usr/local/bin/clang-format"
+let g:clang_format#command="/opt/tiger/llvm/bin/clang-format"
 let g:clang_format#detect_style_file = 1
 let g:clang_format#enable_fallback_style=1
 let g:clang_format#auto_format = 0
@@ -328,7 +319,7 @@ let g:ycm_filetype_whitelist = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <silent> <F5>  :ClangFormat<cr>
+nmap <silent> <F5>  :FormatCode<cr>
 nmap <silent> <F6>  :UndotreeToggle<cr>
 nmap <silent> <F7>  :TagbarToggle<cr>
 nmap <silent> <F8>  :NERDTreeToggle<cr>
