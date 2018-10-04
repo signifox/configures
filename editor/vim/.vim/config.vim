@@ -103,6 +103,8 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'google/vim-colorscheme-primary'
+Plug 'dracula/vim'
+Plug 'rakr/vim-one'
 Plug 'tpope/vim-fugitive'
 Plug 'jremmen/vim-ripgrep'
 Plug 'SirVer/ultisnips'
@@ -112,7 +114,6 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'vim-scripts/a.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'easymotion/vim-easymotion'
-Plug 'dracula/vim'
 Plug 'aceofall/gtags.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 't9md/vim-choosewin'
@@ -121,6 +122,8 @@ Plug 'simeji/winresizer'
 Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'mileszs/ack.vim'
+Plug 'skywind3000/asyncrun.vim'
 
 call plug#end()
 
@@ -133,9 +136,13 @@ if !has("gui_running")
 endif
 set background=dark
 "colorscheme dracula
-colorscheme primary
+"colorscheme primary
+colorscheme one
 
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:asyncrun_open = 8
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -175,6 +182,12 @@ elseif has("unix")
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 endif
 
+if executable("ag")
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-ale
@@ -203,7 +216,7 @@ let g:header_auto_add_header = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:clang_format#command="/opt/tiger/llvm/bin/clang-format"
+let g:clang_format#command="/usr/local/bin/clang-format"
 let g:clang_format#detect_style_file = 1
 let g:clang_format#enable_fallback_style=1
 let g:clang_format#auto_format = 0
