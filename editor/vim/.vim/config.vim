@@ -93,7 +93,6 @@ Plug 'w0rp/ale'
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'bling/vim-bufferline'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
@@ -102,7 +101,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
-Plug 'google/vim-colorscheme-primary'
 Plug 'dracula/vim'
 Plug 'rakr/vim-one'
 Plug 'tpope/vim-fugitive'
@@ -121,7 +119,6 @@ Plug 'luochen1990/rainbow'
 Plug 'simeji/winresizer'
 Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
-Plug 'bronson/vim-trailing-whitespace'
 Plug 'mileszs/ack.vim'
 Plug 'skywind3000/asyncrun.vim'
 
@@ -136,7 +133,6 @@ if !has("gui_running")
 endif
 set background=dark
 "colorscheme dracula
-"colorscheme primary
 colorscheme one
 
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -216,7 +212,8 @@ let g:header_auto_add_header = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "clang-format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:clang_format#command="/usr/local/bin/clang-format"
+let g:clang_format#command="/opt/tiger/llvm/bin/clang-format"
+"let g:clang_format#command="/usr/local/bin/clang-format"
 let g:clang_format#detect_style_file = 1
 let g:clang_format#enable_fallback_style=1
 let g:clang_format#auto_format = 0
