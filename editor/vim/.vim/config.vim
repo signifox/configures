@@ -227,9 +227,6 @@ let g:clang_format#auto_format = 0
 let g:clang_c_options = '-std=gnu11'
 let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 
-let g:cpp_class_scope_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-
 "cscope
 set cscopetag                  " 使用 cscope 作为 tags 命令
 set cscopeprg='gtags-cscope'   " 使用 gtags-cscope 代替 cscope
