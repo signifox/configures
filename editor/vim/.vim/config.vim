@@ -106,19 +106,14 @@ Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'alpertuna/vim-header'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'vim-scripts/a.vim'
 Plug 'aceofall/gtags.vim'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'luochen1990/rainbow'
 Plug 't9md/vim-choosewin'
 Plug 'simeji/winresizer'
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
 Plug 'dracula/vim'
-Plug 'rakr/vim-one'
 
 call plug#end()
 
@@ -130,13 +125,10 @@ if !has("gui_running")
     set term=screen-256color
 endif
 set background=dark
-"colorscheme dracula
-colorscheme one
+colorscheme dracula
 
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:ackprg = 'ag --nogroup --nocolor --column'
-let g:asyncrun_open = 8
-let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -292,34 +284,6 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"YCM
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-set completeopt=menu,menuone
-
-let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
-
-let g:ycm_semantic_triggers =  {
-            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-            \ 'cs,lua,javascript': ['re!\w{2}'],
-            \ }
-
-let g:ycm_filetype_whitelist = {
-            \ "c":1,
-            \ "cpp":1,
-            \ "objc":1,
-            \ "sh":1,
-            \ "zsh":1,
-            \ "zimbu":1,
-            \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
