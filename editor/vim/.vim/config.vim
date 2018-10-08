@@ -113,7 +113,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'luochen1990/rainbow'
 Plug 't9md/vim-choosewin'
 Plug 'simeji/winresizer'
-Plug 'dracula/vim'
+Plug 'tomasr/molokai'
 
 call plug#end()
 
@@ -125,8 +125,10 @@ if !has("gui_running")
     set term=screen-256color
 endif
 set background=dark
-colorscheme dracula
+colorscheme molokai
 
+let g:molokai_original = 1
+let g:rehash256 = 1
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -137,7 +139,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='dracula'
+let g:airline_theme='molokai'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
