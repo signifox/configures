@@ -288,8 +288,21 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"UDF
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+fu! OpenTerminal()
+ botright split
+ resize 10
+ :call term_start('zsh', {'curwin' : 1, 'term_finish' : 'close'})
+endf
+command! -nargs=0 OpenTerminal        call OpenTerminal()
+"nnoremap <F4> :call OpenTerminal()<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent> <F4>  :OpenTerminal<cr>
 nmap <silent> <F5>  :FormatCode<cr>
 nmap <silent> <F6>  :UndotreeToggle<cr>
 nmap <silent> <F7>  :TagbarToggle<cr>
