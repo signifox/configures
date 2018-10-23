@@ -57,13 +57,14 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" default)))
  '(package-selected-packages
    (quote
-    (monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company-irony irony company smex magit counsel-gtags counsel swiper ivy evil use-package))))
+    (monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company smex magit counsel-gtags counsel swiper ivy evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(set-face-attribute 'default nil :height 180)
 
 (use-package smex                :ensure t)
 (use-package editorconfig        :ensure t)
@@ -247,20 +248,6 @@
     (setq company-tooltip-align-annotations t company-show-numbers t)
     (setq company-dabbrev-downcase nil))
   :diminish company-mode)
-
-(use-package irony
-  :ensure t
-  :config
-  (add-hook 'irony-mode-hook #'electric-pair-mode)
-  (add-hook 'c++-mode-hook #'irony-mode)
-  (add-hook 'c-mode-hook #'irony-mode)
-  (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
-  (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)
-
-  (use-package company-irony
-      :ensure t
-      :config
-      (add-to-list 'company-backends 'company-irony)))
 
 (use-package clang-format
   :ensure t
