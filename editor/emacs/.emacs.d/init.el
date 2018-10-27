@@ -13,6 +13,7 @@
 (global-hl-line-mode 1)
 (display-time-mode 1)
 (global-linum-mode t)
+(desktop-save-mode 1)
 (setq inhibit-startup-screen t)
 (global-auto-revert-mode 1)
 (setq column-number-mode t)
@@ -57,7 +58,7 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" default)))
  '(package-selected-packages
    (quote
-    (monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company smex magit counsel-gtags counsel swiper ivy evil use-package))))
+    (counsel-gtags which-key eshell-git-prompt youdao-dictionary powerline-evil evil-leader htmlize monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company smex magit counsel swiper ivy evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -82,11 +83,39 @@
   (define-key evil-insert-state-map [remap newline-and-indent] 'newline-and-indent)
   (define-key evil-ex-map "e " 'find-file)
   (define-key evil-ex-map "b " 'switch-to-buffer)
+
+  (use-package evil-leader
+    :ensure t
+    :init (global-evil-leader-mode)
+    :config
+    (progn
+      (setq evil-leader/in-all-states t)
+      (evil-leader/set-leader "<SPC>")
+      (evil-leader/set-key
+        "A" 'ag
+        "b" 'ivy-switch-buffer
+        "g" 'counsel-rg
+        "x" 'smex)))
   (evil-mode 1)
   ;; remove all keybindings from insert-state keymap, use emacs-state when editing
   (setcdr evil-insert-state-map nil)
+
+  (use-package powerline-evil
+    :ensure t
+    :config
+    (powerline-evil-vim-color-theme))
+
   ;; ESC to switch back normal-state
-  (define-key evil-insert-state-map [escape] 'evil-normal-state))
+  (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  ;; esc should always quit: http://stackoverflow.com/a/10166400/61435
+  (define-key evil-normal-state-map [escape] 'keyboard-quit)
+  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  (define-key minibuffer-local-map [escape] 'abort-recursive-edit)
+  (define-key minibuffer-local-ns-map [escape] 'abort-recursive-edit)
+  (define-key minibuffer-local-completion-map [escape] 'abort-recursive-edit)
+  (define-key minibuffer-local-must-match-map [escape] 'abort-recursive-edit)
+  (define-key minibuffer-local-isearch-map [escape] 'abort-recursive-edit)
+  (global-set-key [escape] 'evil-exit-emacs-state))
 
 
 ;;Extensions
@@ -144,14 +173,15 @@
   (setq ivy-format-function 'ivy-format-function-arrow)
 
   (use-package counsel-gtags
-  :init
-  (add-hook 'c-mode-hook 'counsel-gtags-mode)
-  (add-hook 'c++-mode-hook 'counsel-gtags-mode)
-  :bind
-  ("M-t" . counsel-gtags-find-definition)
-  ("M-r" . counsel-gtags-find-reference)
-  ("M-s" . counsel-gtags-find-symbol)
-  ("M-," . counsel-gtags-go-backward)))
+     :ensure t
+     :init
+     (add-hook 'c-mode-hook 'counsel-gtags-mode)
+     (add-hook 'c++-mode-hook 'counsel-gtags-mode)
+     :bind
+     ("M-t" . counsel-gtags-find-definition)
+     ("M-r" . counsel-gtags-find-reference)
+     ("M-s" . counsel-gtags-find-symbol)
+     ("M-," . counsel-gtags-go-backward)))
 
 
 (use-package flycheck
@@ -225,6 +255,34 @@
   :bind (("C-x o" . ace-window)
          ("M-o"   . ace-window)))
 
+(use-package youdao-dictionary
+  :ensure t
+  :init
+  (setq url-automatic-caching t)
+  :config
+  (global-set-key (kbd "C-c y") 'youdao-dictionary-search-at-point+))
+
+(use-package htmlize
+  :ensure t
+  :commands (htmlize-buffer
+             htmlize-file
+             htmlize-many-files
+             htmlize-many-files-dired
+             htmlize-region))
+
+(use-package eshell-git-prompt
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'eshell-first-time-mode-hook
+    (lambda ()
+      (eshell-git-prompt-use-theme 'powerline))))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode +1))
+
 (use-package projectile
   :ensure t
   :init
@@ -237,17 +295,28 @@
 ;;Lang-cc
 (use-package company
   :ensure t
-  :defer t
+  :bind (("C-c /". company-complete))
+  :diminish company-mode
+  :commands company-mode
   :init
+  (setq
+   company-dabbrev-ignore-case nil
+   company-dabbrev-code-ignore-case nil
+   company-dabbrev-downcase nil
+   company-idle-delay 0
+   company-minimum-prefix-length 4)
+  :config
+  ;; disables TAB in company-mode, freeing it for yasnippet
   (global-company-mode)
   (add-hook 'c-mode-hook #'company-mode)
   (add-hook 'c++-mode-hook #'company-mode)
-  :config
-  (progn
-    (bind-key [remap completion-at-point] #'company-complete company-mode-map)
-    (setq company-tooltip-align-annotations t company-show-numbers t)
-    (setq company-dabbrev-downcase nil))
-  :diminish company-mode)
+
+  (setq company-backends (delete 'company-semantic company-backends))
+  (add-to-list 'company-backends 'company-gtags)
+  (add-to-list 'company-backends 'company-c-headers)
+  (define-key company-active-map [tab] nil)
+  (define-key company-active-map (kbd "TAB") nil))
+
 
 (use-package clang-format
   :ensure t
@@ -308,7 +377,6 @@
   (load-file user-init-file))
 
 ;;;; global key bindings
-(global-set-key (kbd "<f3>")  'imenu-anywhere)
 (global-set-key (kbd "<f4>")  'counsel-find-file)
 (global-set-key (kbd "<f5>")  'clang-format-buffer)
 (global-set-key (kbd "<f6>")  'counsel-rg)
