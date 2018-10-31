@@ -13,7 +13,6 @@
 (global-hl-line-mode 1)
 (display-time-mode 1)
 (global-linum-mode t)
-(desktop-save-mode 1)
 (setq inhibit-startup-screen t)
 (global-auto-revert-mode 1)
 (setq column-number-mode t)
@@ -55,10 +54,10 @@
  '(custom-enabled-themes (quote (monokai)))
  '(custom-safe-themes
    (quote
-    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "aaffceb9b0f539b6ad6becb8e96a04f2140c8faa1de8039a343a4f1e009174fb" default)))
+    ("bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
  '(package-selected-packages
    (quote
-    (counsel-gtags which-key eshell-git-prompt youdao-dictionary powerline-evil evil-leader htmlize monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig ibuffer-sidebar yasnippet clang-format avy dired-sidebar yasnippet-snippets flycheck company smex magit counsel swiper ivy evil use-package))))
+    (counsel-gtags which-key youdao-dictionary powerline-evil evil-leader htmlize monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig yasnippet yasnippet-snippets clang-format avy dired-sidebar flycheck company smex magit counsel swiper ivy evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -74,6 +73,7 @@
 (use-package rainbow-delimiters  :ensure t)
 (use-package darkroom            :ensure t)
 (use-package monokai-theme       :ensure t)
+
 
 ;; Evil Mode
 (use-package evil
@@ -270,18 +270,24 @@
              htmlize-many-files-dired
              htmlize-region))
 
-(use-package eshell-git-prompt
-  :ensure t
-  :defer t
-  :init
-  (add-hook 'eshell-first-time-mode-hook
-    (lambda ()
-      (eshell-git-prompt-use-theme 'powerline))))
-
 (use-package which-key
   :ensure t
   :config
   (which-key-mode +1))
+
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
+  :config
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
+  (setq dired-sidebar-subtree-line-prefix "+")
+  (setq dired-sidebar-use-term-integration t))
 
 (use-package projectile
   :ensure t
@@ -310,13 +316,11 @@
   (global-company-mode)
   (add-hook 'c-mode-hook #'company-mode)
   (add-hook 'c++-mode-hook #'company-mode)
-
   (setq company-backends (delete 'company-semantic company-backends))
   (add-to-list 'company-backends 'company-gtags)
   (add-to-list 'company-backends 'company-c-headers)
   (define-key company-active-map [tab] nil)
   (define-key company-active-map (kbd "TAB") nil))
-
 
 (use-package clang-format
   :ensure t
@@ -324,6 +328,8 @@
   (setq clang-format-style (concat "{BasedOnStyle: Google}"))
   :commands clang-format clang-format-buffer clang-format-region)
 
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
 ;;Function
 (defun vsplit-last-buffer ()
@@ -341,36 +347,6 @@
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
-(use-package dired-sidebar
-  :ensure t
-  :commands (dired-sidebar-toggle-sidebar)
-  :init
-  (add-hook 'dired-sidebar-mode-hook
-            (lambda ()
-              (unless (file-remote-p default-directory)
-                (auto-revert-mode))))
-  :config
-  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
-  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
-  (setq dired-sidebar-subtree-line-prefix "+")
-  (setq dired-sidebar-use-term-integration t))
-
-(use-package ibuffer-sidebar
-  :ensure t
-  :commands (ibuffer-sidebar-toggle-sidebar)
-  :config
-  (setq ibuffer-sidebar-use-custom-font t)
-  (setq ibuffer-sidebar-face `(:family "Helvetica" :height 140)))
-
-(defun vsidebar()
-  "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
-  (interactive)
-  (dired-sidebar-toggle-sidebar)
-  (ibuffer-sidebar-toggle-sidebar))
-
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
-
 (defun vreload()
   "Reload."
   (interactive)
@@ -381,7 +357,7 @@
 (global-set-key (kbd "<f5>")  'clang-format-buffer)
 (global-set-key (kbd "<f6>")  'counsel-rg)
 (global-set-key (kbd "<f7>")  'avy-goto-char-2)
-(global-set-key (kbd "<f8>")  'vsidebar)
+(global-set-key (kbd "<f8>")  'dired-sidebar-toggle-sidebar)
 (global-set-key (kbd "<f9>")  'darkroom-mode)
 
 ;;; init.el ends here
