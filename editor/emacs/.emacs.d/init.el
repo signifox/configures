@@ -57,7 +57,7 @@
     ("bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
  '(package-selected-packages
    (quote
-    (counsel-gtags which-key youdao-dictionary powerline-evil evil-leader htmlize monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig yasnippet yasnippet-snippets clang-format avy dired-sidebar flycheck company smex magit counsel swiper ivy evil use-package))))
+    (company-irony flycheck-irony irony counsel-gtags which-key youdao-dictionary powerline-evil evil-leader htmlize monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig yasnippet yasnippet-snippets clang-format avy dired-sidebar flycheck company smex magit counsel swiper ivy evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -191,8 +191,10 @@
   (global-flycheck-mode)
   :config
   (progn
-    (add-hook 'c++-mode-hook #'flycheck-mode)
     (add-hook 'c-mode-hook #'flycheck-mode)
+    (add-hook 'c++-mode-hook #'flycheck-mode)
+    (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+    (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
     (add-hook 'python-mode-hook #'flycheck-mode)))
 
 (use-package yasnippet
@@ -318,7 +320,6 @@
   (add-hook 'c++-mode-hook #'company-mode)
   (setq company-backends (delete 'company-semantic company-backends))
   (add-to-list 'company-backends 'company-gtags)
-  (add-to-list 'company-backends 'company-c-headers)
   (define-key company-active-map [tab] nil)
   (define-key company-active-map (kbd "TAB") nil))
 
@@ -327,6 +328,28 @@
   :config
   (setq clang-format-style (concat "{BasedOnStyle: Google}"))
   :commands clang-format clang-format-buffer clang-format-region)
+
+(use-package irony
+  :ensure t
+  :config
+  (add-hook 'irony-mode-hook #'electric-pair-mode)
+  (add-hook 'c++-mode-hook #'irony-mode)
+  (add-hook 'c-mode-hook #'irony-mode)
+  (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
+  (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)
+
+  (use-package flycheck-irony
+    :ensure t
+    :commands flycheck-irony-setup
+    :init
+    (add-hook 'c++-mode-hook 'flycheck-irony-setup)
+    (add-hook 'c-mode-hook 'flycheck-irony-setup))
+
+  (use-package company-irony
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-irony)))
+
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
