@@ -57,7 +57,7 @@
     ("bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
  '(package-selected-packages
    (quote
-    (counsel-gtags which-key youdao-dictionary powerline-evil evil-leader htmlize monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig yasnippet yasnippet-snippets clang-format avy dired-sidebar flycheck company smex magit counsel swiper ivy evil use-package))))
+    (elpy counsel-gtags which-key youdao-dictionary powerline-evil evil-leader htmlize monokai-theme rainbow-delimiters ace-window window-numbering projectile smartparens rainbow-mode darkroom editorconfig yasnippet yasnippet-snippets clang-format avy dired-sidebar flycheck company smex magit counsel swiper ivy evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -329,6 +329,25 @@
   (setq clang-format-style (concat "{BasedOnStyle: Google}"))
   :commands clang-format clang-format-buffer clang-format-region)
 
+;;Lang-python
+;pip install jedi flake8 yapf autopep8 importmagic rope
+(use-package elpy
+  :ensure t
+  :defer 2
+  :config
+  (progn
+    ;; Use Flycheck instead of Flymake
+    (when (require 'flycheck nil t)
+      (remove-hook 'elpy-modules 'elpy-module-flymake)
+      (remove-hook 'elpy-modules 'elpy-module-yasnippet)
+      (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
+      (add-hook 'elpy-mode-hook 'flycheck-mode))
+    (elpy-enable)
+    ;; jedi is great
+    (setq elpy-rpc-backend "jedi")))
+
+(setq python-indent-guess-indent-offset t)
+(setq python-indent-guess-indent-offset-verbose nil)
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)

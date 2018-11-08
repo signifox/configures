@@ -108,8 +108,8 @@ Plug 'honza/vim-snippets'
 Plug 'alpertuna/vim-header'
 Plug 'vim-scripts/a.vim'
 Plug 'aceofall/gtags.vim'
+Plug 'ervandew/supertab'
 Plug 'easymotion/vim-easymotion'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'luochen1990/rainbow'
 Plug 't9md/vim-choosewin'
 Plug 'simeji/winresizer'
@@ -254,19 +254,9 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"multi-cursors
+"super-tab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 多光标操作
-let g:multi_cursor_use_default_mapping=0
-" Default mapping
-" ctrl+m 选中一个
-" ctrl+p 放弃一个, 回到上一个
-" ctrl+x 跳过当前选中, 选中下一个
-" esc    退出
-let g:multi_cursor_next_key='<C-m>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
+let g:SuperTabDefaultCompletionType = 'context'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
