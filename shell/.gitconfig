@@ -10,7 +10,6 @@
     default = tracking
 [alias]
     st   = status
-    di   = icdiff
     br   = branch
     ci   = commit
     cc   = commit --amend
