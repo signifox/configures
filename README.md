@@ -1,1 +1,1 @@
-configure for self use.
+dot configure
