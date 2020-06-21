@@ -26,4 +26,5 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 #https://code.visualstudio.com/
 #https://sequelpro.com/test-builds
 #https://freemacsoft.net/appcleaner/
+#https://zoom.us/download
 
