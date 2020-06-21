@@ -35,3 +35,11 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ############
 #https://seal.bytedance.net/
 #https://lark.bytedance.net/
+
+###########
+#other
+###########
+#https://www.jetbrains.com/lp/mono/
+#https://sourcefoundry.org/hack/
+#https://iterm2colorschemes.com/
+#https://draculatheme.com/
