@@ -27,4 +27,11 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 #https://sequelpro.com/test-builds
 #https://freemacsoft.net/appcleaner/
 #https://zoom.us/download
+#https://mac.weixin.qq.com/?t=mac
+#https://www.amazon.cn/kindle-dbs/fd/kcp/ref=sv_kinc_0
 
+############
+#bytedance
+############
+#https://seal.bytedance.net/
+#https://lark.bytedance.net/
