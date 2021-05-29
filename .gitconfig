@@ -8,6 +8,8 @@
     grep   = always
 [push]
     default = tracking
+[pull]
+    rebase = true
 [alias]
     st   = status
     br   = branch
