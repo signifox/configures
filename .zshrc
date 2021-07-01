@@ -22,5 +22,5 @@ alias rm='ls -l'
 alias s='ls'
 alias vi='vim'
 
-export EDITOR=vim
+#export EDITOR=vim
 export LESSCHARSET=utf-8
