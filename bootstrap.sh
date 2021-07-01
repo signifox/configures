@@ -4,11 +4,14 @@
 
 brew install coreutils vim zsh tmux clang-format ripgrep
 
-#install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#install miniplug
+curl \
+  -sL --create-dirs \
+  https://git.sr.ht/~yerinalexey/miniplug/blob/master/miniplug.zsh \
+  -o $HOME/.local/share/miniplug.zsh
 
-#init  zinit
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+# Add to zshrc:
+source "$HOME/.local/share/miniplug.zsh"
 
 ###########
 #configure

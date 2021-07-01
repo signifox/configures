@@ -1,13 +1,10 @@
-export ZSH=$HOME/.oh-my-zsh
-
-ZSH_THEME="gentoo"
-
-CASE_SENSITIVE="true"
-DISABLE_CORRECTION="true"
-
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
+source $HOME/.local/share/miniplug.zsh
+miniplug plugin 'zsh-users/zsh-history-substring-search'
+miniplug plugin 'zsh-users/zsh-syntax-highlighting'
+miniplug plugin 'zsh-users/zsh-autosuggestions'
+miniplug plugin 'zsh-users/zsh-completions'
+miniplug theme  'dracula/zsh'
+miniplug load
 
 #PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 #MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
