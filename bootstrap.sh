@@ -7,6 +7,9 @@ brew install coreutils vim zsh tmux clang-format ripgrep
 #install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+#init  zinit
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+
 ###########
 #configure
 ##########
