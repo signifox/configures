@@ -27,25 +27,8 @@ source "$HOME/.local/share/miniplug.zsh"
 ###########
 
 #https://www.cakebrew.com/
-#https://typora.io/
 #https://www.iterm2.com/
 #https://code.visualstudio.com/
 #https://sequelpro.com/test-builds
 #https://freemacsoft.net/appcleaner/
-#https://zoom.us/download
-#https://mac.weixin.qq.com/?t=mac
-#https://www.amazon.cn/kindle-dbs/fd/kcp/ref=sv_kinc_0
 
-############
-#bytedance
-############
-#https://seal.bytedance.net/
-#https://lark.bytedance.net/
-
-###########
-#other
-###########
-#https://www.jetbrains.com/lp/mono/
-#https://sourcefoundry.org/hack/
-#https://iterm2colorschemes.com/
-#https://draculatheme.com/
