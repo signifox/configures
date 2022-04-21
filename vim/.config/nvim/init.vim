@@ -52,7 +52,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-set guifont=Hack:h14
+"set guifont=Hack:h14
 
 set termguicolors
 
@@ -85,6 +85,8 @@ autocmd BufReadPost *
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'majutsushi/tagbar'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-glaive'
@@ -101,7 +103,6 @@ Plug 'github/copilot.vim'
 
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'feline-nvim/feline.nvim'
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -118,6 +119,21 @@ endif
 colorscheme dracula
 let g:rainbow_active = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='molokai'
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"coc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
@@ -181,7 +197,6 @@ let g:choosewin_overlay_enable = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 lua << EOF
   require'nvim-tree'.setup()
-  require('feline').setup()
 EOF
 
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
