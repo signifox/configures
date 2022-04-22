@@ -28,6 +28,7 @@ set ruler
 set cursorline
 set cursorcolumn
 set nocp
+set nofoldenable
 set wildmenu
 set hid
 set smartcase
@@ -51,9 +52,6 @@ set backspace=2
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-
-"set guifont=Hack:h14
-
 set termguicolors
 
 syntax on
@@ -94,7 +92,7 @@ Plug 'google/vim-codefmt'
 Plug 'easymotion/vim-easymotion'
 Plug 't9md/vim-choosewin'
 Plug 'vim-scripts/a.vim'
-Plug 'dracula/vim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -104,7 +102,6 @@ Plug 'github/copilot.vim'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
@@ -116,7 +113,19 @@ if !has("gui_running")
     set t_Co=256
 endif
 
-colorscheme dracula
+let g:tokyonight_style = "storm"
+let g:tokyonight_italic_functions = 1
+let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+" Change the "hint" color to the "orange" color, and make the "error" color bright red
+let g:tokyonight_colors = {
+  \ 'hint': 'orange',
+  \ 'error': '#ff0000',
+  \ 'bg_visual': 'orange',
+  \ 'bg_search': 'orange',
+\ }
+
+"colorscheme dracula
+colorscheme tokyonight
 let g:rainbow_active = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
