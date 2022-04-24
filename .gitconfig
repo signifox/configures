@@ -8,8 +8,6 @@
     grep   = always
 [push]
     default = tracking
-[pull]
-    rebase = true
 [alias]
     st   = status
     br   = branch
@@ -29,4 +27,5 @@
     logoutputencoding = utf-8
 [svn]
     pathnameencoding = utf-8
-
+[pull]
+    rebase = true
