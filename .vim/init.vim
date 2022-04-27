@@ -1,4 +1,11 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Vim Configuration
+"Author: signifox
+"Email:  signifox@gmail.com
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Font encode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
@@ -45,6 +52,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
+set guifont=Hack:h14
 
 syntax on
 filetype plugin indent on
@@ -99,6 +107,7 @@ colorscheme molokai
 
 let g:molokai_original = 1
 let g:rehash256 = 1
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -106,7 +115,7 @@ let g:rehash256 = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#left_sep = ' '
