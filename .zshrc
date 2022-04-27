@@ -1,3 +1,10 @@
+if [[ ! -f $HOME/.local/share/miniplug.zsh ]]; then
+curl \
+  -sL --create-dirs \
+  https://git.sr.ht/~yerinalexey/miniplug/blob/master/miniplug.zsh \
+  -o $HOME/.local/share/miniplug.zsh
+fi
+
 source $HOME/.local/share/miniplug.zsh
 miniplug plugin 'zsh-users/zsh-history-substring-search'
 miniplug plugin 'zsh-users/zsh-syntax-highlighting'
