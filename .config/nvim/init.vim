@@ -159,92 +159,113 @@ let g:choosewin_overlay_enable = 1
 "Lua Plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 lua << EOF
-require('monokai').setup { palette = require('monokai').pro }
+require('monokai').setup {
+    palette = require('monokai').pro
+}
 
 require('lualine').setup {
     options = {
         icons_enabled = true,
         theme = 'auto',
         component_separators = '|',
-        section_separators = '',
-        },
+        section_separators = ''
     }
+}
 
-require("gitsigns").setup(
-{
+require("gitsigns").setup({
     signs = {
-        add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-        change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-        delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-        topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-        changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+        add = {
+            hl = 'GitSignsAdd',
+            text = '│',
+            numhl = 'GitSignsAddNr',
+            linehl = 'GitSignsAddLn'
         },
-  }
-  )
+        change = {
+            hl = 'GitSignsChange',
+            text = '│',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn'
+        },
+        delete = {
+            hl = 'GitSignsDelete',
+            text = '_',
+            numhl = 'GitSignsDeleteNr',
+            linehl = 'GitSignsDeleteLn'
+        },
+        topdelete = {
+            hl = 'GitSignsDelete',
+            text = '‾',
+            numhl = 'GitSignsDeleteNr',
+            linehl = 'GitSignsDeleteLn'
+        },
+        changedelete = {
+            hl = 'GitSignsChange',
+            text = '~',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn'
+        }
+    }
+})
 
-  require("bufferline").setup(
-  {
-          options = {
-              numbers = "ordinal",
-              diagnostics = "nvim_lsp",
-              indicator_icon = "▎",
-              buffer_close_icon = "",
-              modified_icon = "●",
-              close_icon = "",
-              left_trunc_marker = "",
-              right_trunc_marker = "",
-              separator_style = "thin",
-              offsets = {
-                  {
-                          filetype = "NvimTree",
-                          text = "File Explorer",
-                          highlight = "Directory",
-                          text_align = "left"
-                  }
-                  },
-              diagnostics_indicator = function(count, level, diagnostics_dict, context)
-              local s = " "
-              for e, n in pairs(diagnostics_dict) do
-                  local sym = e == "error" and " " or (e == "warning" and " " or "")
-                  s = s .. n .. sym
-                  end
-                  return s
-                  end
-                  }
-  }
-  )
+require("bufferline").setup({
+    options = {
+        numbers = "ordinal",
+        diagnostics = "nvim_lsp",
+        indicator_icon = "▎",
+        buffer_close_icon = "",
+        modified_icon = "●",
+        close_icon = "",
+        left_trunc_marker = "",
+        right_trunc_marker = "",
+        separator_style = "thin",
+        offsets = {{
+            filetype = "NvimTree",
+            text = "File Explorer",
+            highlight = "Directory",
+            text_align = "left"
+        }},
+        diagnostics_indicator = function(count, level, diagnostics_dict, context)
+            local s = " "
+            for e, n in pairs(diagnostics_dict) do
+                local sym = e == "error" and " " or (e == "warning" and " " or "")
+                s = s .. n .. sym
+            end
+            return s
+        end
+    }
+})
 
-  require'nvim-treesitter.configs'.setup {
-      ensure_installed = {"c", "cpp", "python", "html", "css", "vim", "lua", "javascript", "typescript", "tsx"},
-      highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false
-          },
-      incremental_selection = {
-          enable = true,
-          keymaps = {
-              init_selection = '<CR>',
-              node_incremental = '<CR>',
-              node_decremental = '<BS>',
-              scope_incremental = '<TAB>',
-              }
-          },
-      indent = {
-          enable = true
-          }
-      }
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = {"c", "cpp", "python", "html", "css", "vim", "lua", "javascript", "typescript", "tsx"},
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = '<CR>',
+            node_incremental = '<CR>',
+            node_decremental = '<BS>',
+            scope_incremental = '<TAB>'
+        }
+    },
+    indent = {
+        enable = true
+    }
+}
 
-  require('nvim-tree').setup {
-      auto_reload_on_write = true,
-      disable_netrw = false,
-      hide_root_folder = false,
-      sort_by = "name",
-      git = {
-          enable = true,
-          ignore = true,
-          timeout = 400,
-          },
-      }
+require('nvim-tree').setup {
+    auto_reload_on_write = true,
+    disable_netrw = false,
+    hide_root_folder = false,
+    sort_by = "name",
+    git = {
+        enable = true,
+        ignore = true,
+        timeout = 400
+    }
+}
 EOF
 
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
@@ -269,25 +290,25 @@ let g:nvim_tree_icons = {
             \ 'default': "",
             \ 'symlink': "",
             \ 'git': {
-            \   'unstaged': "✗",
-            \   'staged': "✓",
-            \   'unmerged': "",
-            \   'renamed': "➜",
-            \   'untracked': "★",
-            \   'deleted': "",
-            \   'ignored': "◌"
-            \   },
-            \ 'folder': {
-            \   'arrow_open': "",
-            \   'arrow_closed': "",
-            \   'default': "",
-            \   'open': "",
-            \   'empty': "",
-            \   'empty_open': "",
-            \   'symlink': "",
-            \   'symlink_open': "",
-            \   }
-            \ }
+                \   'unstaged': "✗",
+                \   'staged': "✓",
+                \   'unmerged': "",
+                \   'renamed': "➜",
+                \   'untracked': "★",
+                \   'deleted': "",
+                \   'ignored': "◌"
+                \   },
+                \ 'folder': {
+                    \   'arrow_open': "",
+                    \   'arrow_closed': "",
+                    \   'default': "",
+                    \   'open': "",
+                    \   'empty': "",
+                    \   'empty_open': "",
+                    \   'symlink': "",
+                    \   'symlink_open': "",
+                    \   }
+                    \ }
 
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
