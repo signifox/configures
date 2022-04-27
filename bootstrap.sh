@@ -13,22 +13,3 @@ curl \
 # Add to zshrc:
 source "$HOME/.local/share/miniplug.zsh"
 
-###########
-#configure
-##########
-
-#https://github.com/signifox/configures/blob/master/vim/.vim/config.vim
-#https://github.com/signifox/configures/blob/master/.zshrc
-#https://github.com/signifox/configures/blob/master/.tmux.conf
-#https://github.com/signifox/configures/blob/master/.gitconfig
-
-############
-#software
-###########
-
-#https://www.cakebrew.com/
-#https://www.iterm2.com/
-#https://code.visualstudio.com/
-#https://sequelpro.com/test-builds
-#https://freemacsoft.net/appcleaner/
-
