@@ -61,16 +61,16 @@ autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Plugin Setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('nvim')
+call plug#begin('~/.config/nvim/plugged')
+else
 call plug#begin('~/.vim/plugged')
+endif
 
 Plug 'tpope/vim-sensible'
 Plug 'farmergreg/vim-lastplace'
-Plug 'tomasr/molokai'
-Plug 'crusoexia/vim-monokai'
-
-Plug 'ryanoasis/vim-devicons'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'easymotion/vim-easymotion'
+Plug 't9md/vim-choosewin'
 
 Plug 'google/vim-maktaba'
 Plug 'google/vim-glaive'
@@ -81,8 +81,21 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'easymotion/vim-easymotion'
-Plug 't9md/vim-choosewin'
+if has('nvim')
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'github/copilot.vim'
+Plug 'tanvirtin/monokai.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': { -> treesitter#install() } }
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kdheepak/tabline.nvim'
+else
+Plug 'crusoexia/vim-monokai'
+Plug 'ryanoasis/vim-devicons'
+Plug 'bling/vim-bufferline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+endif
 
 call plug#end()
 
@@ -91,14 +104,108 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if !has("gui_running")
     set t_Co=256
-    set term=screen-256color
 endif
 let g:molokai_original = 1
 let g:rehash256 = 1
 set background=dark
 
-"colorscheme molokai
-colorscheme monokai
+if has('nvim')
+  colorscheme monokai_pro
+else
+  colorscheme monokai
+endif
+
+if has('nvim')
+lua <<EOF
+
+require('lualine').setup {
+    options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = '|',
+        section_separators = '',
+        },
+    }
+
+require'tabline'.setup {
+  -- Defaults configuration options
+  enable = true,
+  options = {
+  -- If lualine is installed tabline will use separators configured in lualine by default.
+  -- These options can be used to override those settings.
+    section_separators = {'', ''},
+    component_separators = {'', ''},
+    max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+    show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+    show_devicons = true, -- this shows devicons in buffer section
+    show_bufnr = false, -- this appends [bufnr] to buffer section,
+    show_filename_only = false, -- shows base filename only instead of relative path in filename
+    modified_icon = "+ ", -- change the default modified icon
+    modified_italic = false, -- set to true by default; this determines whether the filename turns italic if modified
+    show_tabs_only = false, -- this shows only tabs instead of tabs + buffers
+  }
+}
+
+vim.cmd[[
+  set guioptions-=e " Use showtabline in gui vim
+  set sessionoptions+=tabpages,globals " store tabpages and globals in session
+]]
+
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = {"c", "cpp", "python", "html", "css", "vim", "lua", "javascript", "typescript", "tsx"},
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false
+        },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = '<CR>',
+            node_incremental = '<CR>',
+            node_decremental = '<BS>',
+            scope_incremental = '<TAB>',
+            }
+        },
+    indent = {
+        enable = true
+        }
+    }
+
+require('nvim-tree').setup {
+    auto_reload_on_write = true,
+    disable_netrw = false,
+    sort_by = "name",
+    git = {
+        enable = true,
+        ignore = true,
+        timeout = 400,
+        },
+    }
+
+EOF
+
+let g:nvim_tree_git_hl = 1
+let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_root_folder_modifier = ':~'
+let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_group_empty = 1
+let g:nvim_tree_icon_padding = ' '
+let g:nvim_tree_symlink_arrow = ' >> '
+let g:nvim_tree_respect_buf_cwd = 1
+let g:nvim_tree_create_in_closed_folder = 1
+let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }
+let g:nvim_tree_show_icons = {
+            \ 'git': 1,
+            \ 'folders': 0,
+            \ 'files': 1,
+            \ 'folder_arrows': 0,
+            \ }
+
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
