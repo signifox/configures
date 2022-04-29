@@ -1,12 +1,17 @@
 # 环境变量
 env:
-  TERM: alacritty
+  TERM: xterm-256color
 
 # 字体
 font:
   normal:
     family: MesloLGS NF
   size: 18.0
+
+shell:
+  program: /bin/zsh
+  args:
+    - --login
 
 # 选中面板自动复制
 selection:

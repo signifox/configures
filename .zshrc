@@ -16,7 +16,7 @@ miniplug load
 #PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 #MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
-# ([[ -f $TMUX ]] && export TERM=screen-256color) || (export TERM=xterm-256color)
+([[ -f $TMUX ]] && export TERM=screen-256color) || (export TERM=xterm-256color)
 
 alias initmux='tmux -2u att'
 alias restmux='tmux attach'
@@ -28,7 +28,6 @@ alias rm='ls -l'
 alias s='ls'
 alias vi='nvim'
 
-export TERM=linux
 export EDITOR=nvim
 export LESSCHARSET=utf-8
 export HOMEBREW_NO_AUTO_UPDATE=true

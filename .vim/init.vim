@@ -86,6 +86,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': { -> treesitter#install() } }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kdheepak/tabline.nvim'
@@ -111,29 +112,38 @@ let g:rehash256 = 1
 set background=dark
 
 if has('nvim')
-  colorscheme monokai_pro
+"colorscheme monokai_pro
+
+" Example config in VimScript
+let g:tokyonight_style = "storm"
+let g:tokyonight_italic_functions = 1
+let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+
+" Change the "hint" color to the "orange" color, and make the "error" color bright red
+let g:tokyonight_colors = {
+  \ 'hint': 'orange',
+  \ 'error': '#ff0000'
+\ }
+
+colorscheme tokyonight
 else
-  colorscheme monokai
+colorscheme monokai
 endif
 
 if has('nvim')
 lua <<EOF
-
 require('lualine').setup {
-    options = {
-        icons_enabled = true,
-        theme = 'auto',
-        component_separators = '|',
-        section_separators = '',
-        },
-    }
+  options = {
+    icons_enabled = true,
+    theme = 'tokyonight',
+    component_separators = '|',
+    section_separators = '',
+  },
+}
 
 require'tabline'.setup {
-  -- Defaults configuration options
   enable = true,
   options = {
-  -- If lualine is installed tabline will use separators configured in lualine by default.
-  -- These options can be used to override those settings.
     section_separators = {'', ''},
     component_separators = {'', ''},
     max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
@@ -153,36 +163,35 @@ vim.cmd[[
 ]]
 
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"c", "cpp", "python", "html", "css", "vim", "lua", "javascript", "typescript", "tsx"},
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false
-        },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = '<CR>',
-            node_incremental = '<CR>',
-            node_decremental = '<BS>',
-            scope_incremental = '<TAB>',
-            }
-        },
-    indent = {
-        enable = true
-        }
+  ensure_installed = {"c", "cpp", "python", "html", "css", "vim", "lua", "javascript", "typescript", "tsx"},
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false
+    },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<CR>',
+      node_incremental = '<CR>',
+      node_decremental = '<BS>',
+      scope_incremental = '<TAB>',
     }
+  },
+  indent = {
+    enable = true
+  }
+}
 
 require('nvim-tree').setup {
-    auto_reload_on_write = true,
-    disable_netrw = false,
-    sort_by = "name",
-    git = {
-        enable = true,
-        ignore = true,
-        timeout = 400,
-        },
-    }
-
+  auto_reload_on_write = true,
+  disable_netrw = false,
+  sort_by = "name",
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 400,
+  },
+}
 EOF
 
 let g:nvim_tree_git_hl = 1
