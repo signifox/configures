@@ -89,6 +89,7 @@ Plug 'tanvirtin/monokai.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': { -> treesitter#install() } }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kdheepak/tabline.nvim'
+Plug 'akinsho/toggleterm.nvim'
 else
 Plug 'crusoexia/vim-monokai'
 Plug 'ryanoasis/vim-devicons'
@@ -423,3 +424,6 @@ nmap <silent> <F7>  :Files<cr>
 nmap <silent> <F11> :bp!<cr>
 nmap <silent> <F12> :bn!<cr>
 
+if has('nvim')
+nmap <silent> <F6>  :ToggleTerm<cr>
+endif
