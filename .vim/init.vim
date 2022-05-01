@@ -39,6 +39,8 @@ set noeb
 set novisualbell
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+set nofoldenable    " disable folding
+set guifont=MesloLGS\ NF:h15
 
 set backspace=2
 set tabstop=4
