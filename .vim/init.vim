@@ -73,6 +73,7 @@ Plug 'tpope/vim-sensible'
 Plug 'farmergreg/vim-lastplace'
 Plug 'easymotion/vim-easymotion'
 Plug 't9md/vim-choosewin'
+Plug 'vim-scripts/a.vim'
 
 Plug 'google/vim-maktaba'
 Plug 'google/vim-glaive'
