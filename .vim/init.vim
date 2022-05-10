@@ -89,7 +89,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': { -> treesitter#install() } }
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kdheepak/tabline.nvim'
 Plug 'akinsho/toggleterm.nvim'
