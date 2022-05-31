@@ -89,7 +89,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kdheepak/tabline.nvim'
 Plug 'akinsho/toggleterm.nvim'
@@ -157,26 +156,6 @@ vim.cmd[[
   set guioptions-=e " Use showtabline in gui vim
   set sessionoptions+=tabpages,globals " store tabpages and globals in session
 ]]
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"c", "cpp", "python", "html", "css", "vim", "lua", "javascript", "typescript", "tsx"},
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false
-    },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<CR>',
-      node_incremental = '<CR>',
-      node_decremental = '<BS>',
-      scope_incremental = '<TAB>',
-    }
-  },
-  indent = {
-    enable = true
-  }
-}
 
 require('nvim-tree').setup {
   auto_reload_on_write = true,
