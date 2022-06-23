@@ -63,11 +63,7 @@ autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Plugin Setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('nvim')
-call plug#begin('~/.config/nvim/plugged')
-else
 call plug#begin('~/.vim/plugged')
-endif
 
 Plug 'tpope/vim-sensible'
 Plug 'farmergreg/vim-lastplace'
@@ -83,21 +79,11 @@ Plug 'w0rp/ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-if has('nvim')
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'tanvirtin/monokai.nvim'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'kdheepak/tabline.nvim'
-Plug 'akinsho/toggleterm.nvim'
-else
 Plug 'crusoexia/vim-monokai'
 Plug 'ryanoasis/vim-devicons'
 Plug 'bling/vim-bufferline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-endif
 
 call plug#end()
 
@@ -111,72 +97,13 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 set background=dark
 
-if has('nvim')
-"colorscheme monokai_pro
-
-" Example config in VimScript
-let g:tokyonight_style = "storm"
-let g:tokyonight_italic_functions = 1
-let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
-
-" Change the "hint" color to the "orange" color, and make the "error" color bright red
-let g:tokyonight_colors = {
-  \ 'hint': 'orange',
-  \ 'error': '#ff0000'
-\ }
-
-colorscheme tokyonight
-
-lua <<EOF
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'tokyonight',
-    component_separators = '|',
-    section_separators = '',
-  },
-}
-
-require'tabline'.setup {
-  enable = true,
-  options = {
-    max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
-    show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
-    show_devicons = true, -- this shows devicons in buffer section
-    show_bufnr = false, -- this appends [bufnr] to buffer section,
-    show_filename_only = true, -- shows base filename only instead of relative path in filename
-    modified_icon = "+ ", -- change the default modified icon
-    modified_italic = false, -- set to true by default; this determines whether the filename turns italic if modified
-    show_tabs_only = false, -- this shows only tabs instead of tabs + buffers
-  }
-}
-
-vim.cmd[[
-  set guioptions-=e " Use showtabline in gui vim
-  set sessionoptions+=tabpages,globals " store tabpages and globals in session
-]]
-
-require('nvim-tree').setup {
-  auto_reload_on_write = true,
-  disable_netrw = false,
-  sort_by = "name",
-  git = {
-    enable = true,
-    ignore = true,
-    timeout = 400,
-  },
-}
-EOF
-
-else
-
 colorscheme monokai
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline_theme='molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
@@ -184,7 +111,6 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#ale#enabled = 1
 
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-ale
@@ -279,14 +205,6 @@ let g:choosewin_overlay_enable = 1
 "Keybind
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <silent> <F5>  :FormatCode<cr>
-nmap <silent> <F7>  :Files<cr>
+nmap <silent> <F6>  :Files<cr>
 nmap <silent> <F11> :bp!<cr>
 nmap <silent> <F12> :bn!<cr>
-
-if has('nvim')
-nmap <silent> <F6>  :ToggleTerm<cr>
-
-nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
-endif

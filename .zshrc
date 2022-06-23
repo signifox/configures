@@ -26,7 +26,7 @@ alias gg='fg %2'
 alias rm='ls -l'
 #alias sbrm='/usr/local/opt/coreutils/libexec/gnubin/rm'
 alias s='ls'
-alias vi='nvim'
+alias vi='vim'
 
 export EDITOR=nvim
 export LESSCHARSET=utf-8
