@@ -28,7 +28,7 @@ alias rm='ls -l'
 alias s='ls'
 alias vi='vim'
 
-export EDITOR=nvim
+#export EDITOR=vim
 export LESSCHARSET=utf-8
 export HOMEBREW_NO_AUTO_UPDATE=true
 export PATH=$HOME/.cargo/bin:$PATH

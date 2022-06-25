@@ -79,6 +79,10 @@ Plug 'w0rp/ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'liuchengxu/vim-which-key'
+
 Plug 'crusoexia/vim-monokai'
 Plug 'ryanoasis/vim-devicons'
 Plug 'bling/vim-bufferline'
@@ -201,10 +205,45 @@ nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Dictionary Setting For WhichKey"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:which_key_map = {
+      \ 'n'     : ['NERDTree'                          , 'NERDTree Toggle']                 ,
+      \ 'm'     : ['MRU'                               , 'View File History']               ,
+      \ 't'     : ['terminal'                          , 'Run Terminal']                    ,
+      \ 'c'     : ['Colors'                            , 'Colors']                          ,
+      \ 'b'     : ['Buffers'                           , 'Buffers']                         ,
+      \ 's'     : ['Files'                             , 'Files']                           ,
+      \ 'W'     : ['Windows'                           , 'Windows']                         ,
+      \ 'H'     : ['History'                           , 'History']                         ,
+      \ 'M'     : ['Maps'                              , 'Maps']                            ,
+      \ }
+
+let g:which_key_map.1 = 'which_key_ignore'
+let g:which_key_map.2 = 'which_key_ignore'
+let g:which_key_map.3 = 'which_key_ignore'
+let g:which_key_map.4 = 'which_key_ignore'
+let g:which_key_map.5 = 'which_key_ignore'
+let g:which_key_map.6 = 'which_key_ignore'
+let g:which_key_map.7 = 'which_key_ignore'
+let g:which_key_map.8 = 'which_key_ignore'
+let g:which_key_map.9 = 'which_key_ignore'
+let g:which_key_map.0 = 'which_key_ignore'
+
+call which_key#register('<Space>', "g:which_key_map")
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Keybind
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <silent> <F5>  :FormatCode<cr>
 nmap <silent> <F6>  :Files<cr>
+nmap <silent> <F7>  :NERDTree<cr>
+nmap <silent> <F8>  :terminal<cr>
+
 nmap <silent> <F11> :bp!<cr>
 nmap <silent> <F12> :bn!<cr>
+
+map <leader>h :WhichKey '<Space>'<Cr>
+
