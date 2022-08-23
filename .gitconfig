@@ -2,14 +2,20 @@
     name  = signifox
     email = signifox@gmail.com
 [color]  # Ensure we get color
-    diff   = always
+    diff   = auto
     branch = auto
     status = auto
     grep   = always
+    editor = vim
+[init]
+    defaultBranch = main
+[pull]
+    rebase = true
 [push]
     default = tracking
 [alias]
     st   = status
+    di   = icdiff
     br   = branch
     ci   = commit
     cc   = commit --amend
@@ -27,5 +33,3 @@
     logoutputencoding = utf-8
 [svn]
     pathnameencoding = utf-8
-[pull]
-    rebase = true

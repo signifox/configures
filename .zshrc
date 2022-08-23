@@ -8,7 +8,7 @@ fi
 source $HOME/.local/share/miniplug.zsh
 miniplug plugin 'zsh-users/zsh-history-substring-search'
 miniplug plugin 'zsh-users/zsh-syntax-highlighting'
-miniplug plugin 'zsh-users/zsh-autosuggestions'
+#miniplug plugin 'zsh-users/zsh-autosuggestions'
 miniplug plugin 'zsh-users/zsh-completions'
 miniplug theme  'dracula/zsh'
 miniplug load
@@ -31,5 +31,4 @@ alias vi='vim'
 #export EDITOR=vim
 export LESSCHARSET=utf-8
 export HOMEBREW_NO_AUTO_UPDATE=true
-export PATH=$HOME/.cargo/bin:$PATH
 
