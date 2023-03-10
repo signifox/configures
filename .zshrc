@@ -29,6 +29,7 @@ alias s='ls'
 alias vi='vim'
 
 #export EDITOR=vim
+export TERM=linux
 export LESSCHARSET=utf-8
 export HOMEBREW_NO_AUTO_UPDATE=true
 
