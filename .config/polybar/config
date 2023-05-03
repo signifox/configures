@@ -30,7 +30,7 @@ yellow = #FCFC99
 green = #79DE79
 blue = #A8E4EF
 
-[bar/mybar]
+[bar/rocket]
 monitor = ${env:MONITOR:}
 
 width = 100%
@@ -56,15 +56,15 @@ module-margin = 3
 separator = |
 separator-foreground = ${colors.disabled}
 
-font-0 = Noto Sans CJK SC:size=8;1
+font-0 = Noto Sans CJK SC:size=10;1
 ; https://github.com/Templarian/MaterialDesign-Font
-font-1 = Material Design Icons Desktop:pixelsize=10;1
+font-1 = Material Design Icons Desktop:pixelsize=12;1
 
-modules-left = xworkspaces
+modules-left = xworkspaces launcher
 modules-center = xwindow
 modules-right = pulseaudio cpu memory wlan eth date gnome-control powermenu
 
-cursor-click = pointers
+;cursor-click = pointers
 cursor-scroll = ns-resize
 
 enable-ipc = true
@@ -192,7 +192,7 @@ label = %percentage%%
 
 [module/wlan]
 type = internal/network
-interface = wlp7s0
+interface = wlo1
 interface-type = wireless
 interval = 1
 
@@ -216,7 +216,7 @@ ramp-signal-4-foreground = ${colors.green}
 
 [module/eth]
 type = internal/network
-interface = enp9s0
+interface = eno2
 interface-type = wired
 interval = 1
 
@@ -255,68 +255,33 @@ format-prefix-foreground = ${colors.foreground}
 
 label = %date% %time%
 
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-interval = 5
-
-format = <ramp> <label>
-format-warn = <ramp> <label-warn>
-
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 󰔏
-ramp-0-foreground = ${colors.blue}
-ramp-1 = 󰔏
-ramp-1-foreground = ${colors.green}
-ramp-2 = 󰔏
-ramp-2-foreground = ${colors.yellow}
-ramp-3 = 󰔏
-ramp-3-foreground = ${colors.orange}
-ramp-4 = 󰔏
-ramp-4-foreground = ${colors.red}
-
-[module/powerbutton]
-type = custom/text
-content = 󰐥
-click-left = i3-msg exit
-
 [module/gnome-control]
 type = custom/text
 content = 󰒓
 click-left = gnome-control-center
 
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+[module/launcher]
+type = custom/text
+content = Q
+
+; "content" has the same properties as "format-NAME"
+format-background = ${color.background}
+format-foreground = ${color.shade4}
+format-padding = 2
+
+click-left = ~/.config/polybar/scripts/launcher.sh &
+
 [module/powermenu]
-type = custom/menu
+type = custom/text
+content = 󰐥
 
-expand-right = true
+; "content" has the same properties as "format-NAME"
+format-background = ${color.background}
+format-foreground = ${color.shade4}
+format-padding = 2
 
-format-spacing = 1
-
-; main label
-label-open = 󰐥
-label-open-foreground = ${colors.foreground}
-; main close
-label-close = "󰅖"
-label-close-foreground = ${colors.foreground}
-label-separator = |
-label-separator-foreground = ${colors.foreground}
-
-; log out
-menu-0-0 = "󰍃"
-menu-0-0-exec = i3-msg exit
-menu-0-0-foreground = ${colors.yellow}
-; reboot
-menu-0-1 = "󰤁"
-menu-0-1-exec = reboot
-menu-0-1-foreground = ${colors.orange}
-; poweroff
-menu-0-2 = "󰤂"
-menu-0-2-exec = poweroff
-menu-0-2-foreground = ${colors.red}
+click-left = ~/.config/polybar/scripts/powermenu.sh &
 
 [settings]
 screenchange-reload = true
