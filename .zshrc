@@ -13,8 +13,7 @@ miniplug plugin 'zsh-users/zsh-completions'
 miniplug theme  'dracula/zsh'
 miniplug load
 
-#PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-#MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 ([[ -f $TMUX ]] && export TERM=screen-256color) || (export TERM=xterm-256color)
 
@@ -24,7 +23,7 @@ alias ff='fg %1'
 alias gg='fg %2'
 
 alias rm='ls -l'
-#alias sbrm='/usr/local/opt/coreutils/libexec/gnubin/rm'
+#alias sbrm='/opt/homebrew/opt/coreutils/libexec/gnubin/rm'
 alias s='ls'
 alias vi='vim'
 
@@ -33,3 +32,4 @@ alias vi='vim'
 export LESSCHARSET=utf-8
 export HOMEBREW_NO_AUTO_UPDATE=true
 
+#export PATH=/opt/homebrew/bin:$PATH

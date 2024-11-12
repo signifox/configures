@@ -80,7 +80,6 @@ Plug 'w0rp/ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-Plug 'crusoexia/vim-monokai'
 Plug 'bling/vim-bufferline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -93,11 +92,6 @@ call plug#end()
 if !has("gui_running")
     set t_Co=256
 endif
-let g:molokai_original = 1
-let g:rehash256 = 1
-set background=dark
-
-colorscheme monokai
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-airline
